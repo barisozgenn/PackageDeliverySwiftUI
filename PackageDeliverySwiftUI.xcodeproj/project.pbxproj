@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AF2916BD2A2FB37C001EC45A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2916BC2A2FB37C001EC45A /* HomeView.swift */; };
+		AF2916BF2A2FB7C5001EC45A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2916BE2A2FB7C5001EC45A /* HomeViewModel.swift */; };
 		AF796CEA2A2FB0E6002F23A9 /* PackageDeliverySwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF796CE92A2FB0E6002F23A9 /* PackageDeliverySwiftUIApp.swift */; };
 		AF796CEC2A2FB0E6002F23A9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF796CEB2A2FB0E6002F23A9 /* ContentView.swift */; };
 		AF796CEE2A2FB0E7002F23A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF796CED2A2FB0E7002F23A9 /* Assets.xcassets */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		AF2916BC2A2FB37C001EC45A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		AF2916BE2A2FB7C5001EC45A /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		AF796CE62A2FB0E6002F23A9 /* PackageDeliverySwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PackageDeliverySwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF796CE92A2FB0E6002F23A9 /* PackageDeliverySwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageDeliverySwiftUIApp.swift; sourceTree = "<group>"; };
 		AF796CEB2A2FB0E6002F23A9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 		AF2916BA2A2FB283001EC45A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				AF2916BE2A2FB7C5001EC45A /* HomeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				AF796D0E2A2FB219002F23A9 /* AddressModel.swift in Sources */,
 				AF796D082A2FB219002F23A9 /* UserTypeModel.swift in Sources */,
 				AF796D072A2FB219002F23A9 /* DriverModel.swift in Sources */,
+				AF2916BF2A2FB7C5001EC45A /* HomeViewModel.swift in Sources */,
 				AF796D0C2A2FB219002F23A9 /* DeliveryStatusModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

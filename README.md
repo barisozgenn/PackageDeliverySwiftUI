@@ -49,7 +49,7 @@ Please follow the steps below to install and run the app:
 
 1. Clone this repository to your local machine.
 ```bash
-   git clone https://github.com/barisozgenn/PackageDeliverySwiftUI.git
+   git clone https://github.com/barisozgenn/PackageDeliverySwiftUI
 ```
 2. Open the project in [Xcode 15 beta](https://developer.apple.com/download/applications/).
 3. Select the desired iOS 17 simulator or connect your device.
