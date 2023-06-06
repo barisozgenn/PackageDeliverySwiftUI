@@ -11,38 +11,31 @@ This is a package delivery SwiftUI app that leverages the latest features announ
 ### Focusable Views
 - Allows for improved accessibility and interaction by making views focusable.
 - Enhances the user experience by enabling more precise control over focus behavior.
-- Available starting June 9.
 
 ### MapKit Integration
 - Utilizes the new MapKit framework for displaying maps and annotating locations.
 - Includes support for drawing circles, polylines, and polygons on the map.
 - Enhances the visual representation of package delivery routes and locations.
-- Available starting June 6.
 
 ### Animated Symbols with Symbols Framework
 - Leverages the new Symbols framework to animate symbols and icons.
 - Provides visually appealing and interactive elements to enhance user engagement.
-- Available starting June 8.
 
 ### Spring Animations
 - Takes advantage of the new spring animation capabilities.
 - Adds dynamic and fluid animations to various UI elements.
-- Available starting June 9.
 
 ### New Scroll Views APIs
 - Utilizes the latest Scroll Views APIs to create responsive and scrollable interfaces.
 - Enables efficient handling of content that exceeds the screen size.
-- Available starting June 7.
 
 ### SwiftData
 - Incorporates SwiftData, a new data processing and manipulation framework.
 - Enables seamless integration and handling of data in the app.
-- Available starting June 7.
 
 ### Observation
 - Leverages the Observation feature to efficiently monitor changes and update the UI.
 - Provides real-time updates to the user interface based on data changes.
-- Available starting June 6.
 
 ## Installation
 
