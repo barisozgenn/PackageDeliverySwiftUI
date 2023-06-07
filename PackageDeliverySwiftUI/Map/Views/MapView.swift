@@ -9,18 +9,24 @@ import SwiftUI
 import MapKit
 
 extension CLLocationCoordinate2D {
-    static let loc1 = CLLocationCoordinate2D(latitude: 42.360506, longitude: -71.057499)
+    static let loc1 = CLLocationCoordinate2D(latitude: 42.360506, longitude: -71.057499)//my loc
     static let loc2 = CLLocationCoordinate2D(latitude: 42.360106, longitude: -71.057409)
-    static let loc3 = CLLocationCoordinate2D(latitude: 42.360106, longitude: -71.057009)
-    static let loc4 = CLLocationCoordinate2D(latitude: 42.349436, longitude: -71.077881)
+    static let loc3 = CLLocationCoordinate2D(latitude: 42.360106, longitude: -71.057009)//pickup loc
+    
+    static let loc4 = CLLocationCoordinate2D(latitude: 42.361506, longitude: -71.057559)
+    static let loc5 = CLLocationCoordinate2D(latitude: 42.362671, longitude: -71.055634)
+    static let loc6 = CLLocationCoordinate2D(latitude: 42.364375, longitude: -71.053822)
+    static let loc8 = CLLocationCoordinate2D(latitude: 42.365395, longitude: -71.052946)
+    static let loc7 = CLLocationCoordinate2D(latitude: 42.364883, longitude: -71.053314)
+    static let loc9 = CLLocationCoordinate2D(latitude: 42.365356, longitude: -71.052981)
+    
+    static let loc10 = CLLocationCoordinate2D(latitude: 42.365581, longitude: -71.053354)
+    static let loc11 = CLLocationCoordinate2D(latitude:  42.365533, longitude: -71.053412)
+    
+    static let loc12 = CLLocationCoordinate2D(latitude:  42.358658, longitude: -71.056692)//driver
     
 }
 
-extension MKCoordinateRegion {
-    static let dumboView = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 40.702846, longitude:  -73.989099),
-        span: MKCoordinateSpan( latitudeDelta: 0.5, longitudeDelta: 0.5))
-}
 
 struct MapView: View {
     @State private var locationSelectedSheet: Bool = false
@@ -30,12 +36,18 @@ struct MapView: View {
     @Binding var selectedItem: MKMapItem?
     @State private var route: MKRoute?
     
-    let gradient = LinearGradient(
-        colors: [.red, .green, .blue],
+    @State private var riderLocation: CLLocationCoordinate2D = .loc12
+    
+    let gradientWalk = LinearGradient(
+        colors: [.orange, .green, .blue],
         startPoint: .leading, endPoint: .trailing)
-    let stroke = StrokeStyle(
+    let strokeWalk = StrokeStyle(
         lineWidth: 5,
-        lineCap: .round, lineJoin: .round, dash: [10, 10])
+        lineCap: .round, lineJoin: .bevel, dash: [10, 10])
+    
+    let gradientDrive = LinearGradient(
+        colors: [.blue, .green],
+        startPoint: .leading, endPoint: .trailing)
     
     var body: some View {
         Map(position: $position, selection: $selectedItem) {
@@ -43,37 +55,46 @@ struct MapView: View {
                 MapPolyline(route)
                     .stroke(.blue, lineWidth: 5)
             }*/
+            MapPolyline(coordinates: [.loc12, .loc3,])
+                .stroke(.yellow, lineWidth: 10)
+            
             MapPolyline(coordinates: [.loc1, .loc2, .loc3])
-                .stroke(gradient, style: stroke)
+                .stroke(gradientWalk, style: strokeWalk)
             
+            MapPolyline(coordinates: [.loc3, .loc4, .loc5, .loc6, .loc7, .loc8, .loc9])
+                .stroke(.blue, lineWidth: 10)
             
-             Marker("baris", monogram: "Baris", coordinate: .loc1)
+            MapPolyline(coordinates: [.loc9, .loc10, .loc11])
+                .stroke(gradientWalk, style: strokeWalk)
+            
+             Marker("You are here", monogram: "Baris", coordinate: .loc1)
              .tint(.blue)
-            Marker("baris", monogram: "Pickup", coordinate: .loc3)
+             .annotationTitles(.automatic)
+             
+            Marker("pickup", monogram: "Pickup", coordinate: .loc3)
             .tint(.black)
-             .tag("corousel")
              .annotationTitles(.hidden)
-            /*Marker(item: MKMapItem(placemark: MKPlacemark(coordinate: .loc2)))
-                .tag("pof")*/
-            
-            /*Annotation("Parking", coordinate: .loc3) {
+            Marker("dropoff", monogram: "Drop Off", coordinate: .loc11)
+            .tint(.black)
+            Annotation("Rider", coordinate: riderLocation) {
                 ZStack {
-                    RoundedRectangle(cornerRadius: 5)
-                        .fill(.background)
-                    RoundedRectangle(cornerRadius: 5)
-                        .stroke(.secondary, lineWidth: 5)
-                    Image(systemName: "car")
-                        .padding (5)
+                    Circle()
+                        .fill(.green)
+                    Circle()
+                        .stroke(.yellow, lineWidth: 1)
+                    Image(systemName: "figure.outdoor.cycle")
+                        .padding (7)
+                        .foregroundStyle(.white)
                 }
                 .onTapGesture {
+                   
                     withAnimation(.smooth){
                         position =
-                            .camera(MapCamera(centerCoordinate: .loc1, distance: 980, heading: 229, pitch: 29))
-                        //.region(MKCoordinateRegion(center: .parking3, latitudinalMeters: 3, longitudinalMeters: 10))
-                        selectedItem = MKMapItem(placemark: MKPlacemark(coordinate: .loc3))
+                            .camera(MapCamera(centerCoordinate: .loc12, distance: 729, heading: 170, pitch: 58))
+                        selectedItem = MKMapItem(placemark: MKPlacemark(coordinate: .loc12))
                     }
                 }
-            }*/
+            }
             
             .annotationTitles(.hidden)
         }
@@ -86,9 +107,9 @@ struct MapView: View {
         }
         .onAppear{
             withAnimation(.smooth){
-                position =
-                    .camera(MapCamera(centerCoordinate: .loc1, distance: 392, heading: 229, pitch: 58))
-                //.region(MKCoordinateRegion(center: .parking3, latitudinalMeters: 3, longitudinalMeters: 10))
+                position = .automatic
+                   // .camera(MapCamera(centerCoordinate: .loc3, distance: 392, heading: 229, pitch: 58))
+             
             }
         }
        
