@@ -7,11 +7,14 @@
 
 import Foundation
 
-enum EPackageType {
+enum EPackageType: Int, CaseIterable, Identifiable {
     case xs
     case s
     case m
     case l
+    
+    var id : Int { return rawValue}
+    
     var pricePerKm: Double {
         switch self {
         case .xs:

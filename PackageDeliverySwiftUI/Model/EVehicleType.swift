@@ -6,12 +6,16 @@
 //
 
 import Foundation
-enum EVehicleType {
+enum EVehicleType: Int, CaseIterable, Identifiable {
     case bicycle
     case scooter
     case car
     case van
+    
+    var id : Int { return rawValue}
+    
     var pricePerKm: Double {
+        
         switch self {
         case .bicycle:
             return 1.5

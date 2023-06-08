@@ -6,8 +6,8 @@
 //
 
 import Foundation
-struct DriverModel {
-    let id: String
+struct DriverModel: Identifiable {
+    let id: UUID
     let user: UserModel
     let location: LocationModel
     let vehicle: EVehicleType

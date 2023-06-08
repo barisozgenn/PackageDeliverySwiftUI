@@ -26,9 +26,13 @@ This is a package delivery SwiftUI app that leverages the latest features announ
 - Adds dynamic and fluid animations to various UI elements.
 
 ### New Scroll Views APIs
-- Utilizes the latest Scroll Views APIs to create responsive and scrollable interfaces.
-- Enables efficient handling of content that exceeds the screen size.
-
+ Utilizes the latest Scroll Views APIs to create responsive and scrollable interfaces.
+ Enables efficient handling of content that exceeds the screen size.
+- contentMargin
+- scrollTargetBehavior
+- containerRelativeFrame
+- scrollPosition
+- scrollTransition
 ### SwiftData
 - Incorporates SwiftData, a new data processing and manipulation framework.
 - Enables seamless integration and handling of data in the app.

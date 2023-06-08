@@ -13,7 +13,7 @@
 		AF796CEE2A2FB0E7002F23A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF796CED2A2FB0E7002F23A9 /* Assets.xcassets */; };
 		AF796CF12A2FB0E7002F23A9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF796CF02A2FB0E7002F23A9 /* Preview Assets.xcassets */; };
 		AF796CF32A2FB0E7002F23A9 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF796CF22A2FB0E7002F23A9 /* Item.swift */; };
-		AF796D062A2FB219002F23A9 /* PackageTypeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF796CFC2A2FB219002F23A9 /* PackageTypeModel.swift */; };
+		AF796D062A2FB219002F23A9 /* EPackageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF796CFC2A2FB219002F23A9 /* EPackageType.swift */; };
 		AF796D072A2FB219002F23A9 /* DriverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF796CFD2A2FB219002F23A9 /* DriverModel.swift */; };
 		AF796D082A2FB219002F23A9 /* UserTypeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF796CFE2A2FB219002F23A9 /* UserTypeModel.swift */; };
 		AF796D092A2FB219002F23A9 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF796CFF2A2FB219002F23A9 /* UserModel.swift */; };
@@ -22,9 +22,11 @@
 		AF796D0C2A2FB219002F23A9 /* DeliveryStatusModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF796D022A2FB219002F23A9 /* DeliveryStatusModel.swift */; };
 		AF796D0D2A2FB219002F23A9 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF796D032A2FB219002F23A9 /* LocationModel.swift */; };
 		AF796D0E2A2FB219002F23A9 /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF796D042A2FB219002F23A9 /* AddressModel.swift */; };
-		AF796D0F2A2FB219002F23A9 /* VehicleTypeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF796D052A2FB219002F23A9 /* VehicleTypeModel.swift */; };
+		AF796D0F2A2FB219002F23A9 /* EVehicleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF796D052A2FB219002F23A9 /* EVehicleType.swift */; };
 		AF982AB22A30647D002432FB /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF982AB12A30647D002432FB /* MapView.swift */; };
 		AF982AB42A3064E8002432FB /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF982AB32A3064E8002432FB /* LocationDetailView.swift */; };
+		AFDBF0ED2A31EEA8003C726A /* DriverSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDBF0EC2A31EEA8003C726A /* DriverSelectionView.swift */; };
+		AFDBF0EF2A31F531003C726A /* PackageSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDBF0EE2A31F531003C726A /* PackageSelectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +37,7 @@
 		AF796CED2A2FB0E7002F23A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF796CF02A2FB0E7002F23A9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AF796CF22A2FB0E7002F23A9 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		AF796CFC2A2FB219002F23A9 /* PackageTypeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackageTypeModel.swift; sourceTree = "<group>"; };
+		AF796CFC2A2FB219002F23A9 /* EPackageType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPackageType.swift; sourceTree = "<group>"; };
 		AF796CFD2A2FB219002F23A9 /* DriverModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverModel.swift; sourceTree = "<group>"; };
 		AF796CFE2A2FB219002F23A9 /* UserTypeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTypeModel.swift; sourceTree = "<group>"; };
 		AF796CFF2A2FB219002F23A9 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -44,10 +46,12 @@
 		AF796D022A2FB219002F23A9 /* DeliveryStatusModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliveryStatusModel.swift; sourceTree = "<group>"; };
 		AF796D032A2FB219002F23A9 /* LocationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		AF796D042A2FB219002F23A9 /* AddressModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
-		AF796D052A2FB219002F23A9 /* VehicleTypeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VehicleTypeModel.swift; sourceTree = "<group>"; };
+		AF796D052A2FB219002F23A9 /* EVehicleType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVehicleType.swift; sourceTree = "<group>"; };
 		AF982AB12A30647D002432FB /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		AF982AB32A3064E8002432FB /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
 		AFDBF0E72A31B97E003C726A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		AFDBF0EC2A31EEA8003C726A /* DriverSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverSelectionView.swift; sourceTree = "<group>"; };
+		AFDBF0EE2A31F531003C726A /* PackageSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageSelectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,12 +109,14 @@
 		AF796CE82A2FB0E6002F23A9 /* PackageDeliverySwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				AFDBF0F02A31F697003C726A /* PackageSelection */,
+				AFDBF0E82A31EE54003C726A /* Selections */,
 				AFDBF0E72A31B97E003C726A /* Info.plist */,
-				AF982AAF2A30645D002432FB /* Map */,
-				AF796CF92A2FB1EC002F23A9 /* App */,
-				AF796CED2A2FB0E7002F23A9 /* Assets.xcassets */,
-				AF2916BB2A2FB33C001EC45A /* Home */,
 				AF796CF22A2FB0E7002F23A9 /* Item.swift */,
+				AF796CED2A2FB0E7002F23A9 /* Assets.xcassets */,
+				AF796CF92A2FB1EC002F23A9 /* App */,
+				AF2916BB2A2FB33C001EC45A /* Home */,
+				AF982AAF2A30645D002432FB /* Map */,
 				AF796CFA2A2FB1F6002F23A9 /* Model */,
 				AF796CEF2A2FB0E7002F23A9 /* Preview Content */,
 			);
@@ -136,7 +142,7 @@
 		AF796CFA2A2FB1F6002F23A9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				AF796CFC2A2FB219002F23A9 /* PackageTypeModel.swift */,
+				AF796CFC2A2FB219002F23A9 /* EPackageType.swift */,
 				AF796CFD2A2FB219002F23A9 /* DriverModel.swift */,
 				AF796CFE2A2FB219002F23A9 /* UserTypeModel.swift */,
 				AF796CFF2A2FB219002F23A9 /* UserModel.swift */,
@@ -145,7 +151,7 @@
 				AF796D022A2FB219002F23A9 /* DeliveryStatusModel.swift */,
 				AF796D032A2FB219002F23A9 /* LocationModel.swift */,
 				AF796D042A2FB219002F23A9 /* AddressModel.swift */,
-				AF796D052A2FB219002F23A9 /* VehicleTypeModel.swift */,
+				AF796D052A2FB219002F23A9 /* EVehicleType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -163,6 +169,46 @@
 			children = (
 				AF982AB12A30647D002432FB /* MapView.swift */,
 				AF982AB32A3064E8002432FB /* LocationDetailView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AFDBF0E82A31EE54003C726A /* Selections */ = {
+			isa = PBXGroup;
+			children = (
+				AFDBF0EB2A31EE93003C726A /* ViewModel */,
+				AFDBF0E92A31EE6D003C726A /* Views */,
+			);
+			path = Selections;
+			sourceTree = "<group>";
+		};
+		AFDBF0E92A31EE6D003C726A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AFDBF0EC2A31EEA8003C726A /* DriverSelectionView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AFDBF0EB2A31EE93003C726A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		AFDBF0F02A31F697003C726A /* PackageSelection */ = {
+			isa = PBXGroup;
+			children = (
+				AFDBF0F12A31F6A1003C726A /* Views */,
+			);
+			path = PackageSelection;
+			sourceTree = "<group>";
+		};
+		AFDBF0F12A31F6A1003C726A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AFDBF0EE2A31F531003C726A /* PackageSelectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -237,15 +283,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF796D062A2FB219002F23A9 /* PackageTypeModel.swift in Sources */,
+				AF796D062A2FB219002F23A9 /* EPackageType.swift in Sources */,
 				AF2916BD2A2FB37C001EC45A /* HomeView.swift in Sources */,
 				AF796D092A2FB219002F23A9 /* UserModel.swift in Sources */,
+				AFDBF0ED2A31EEA8003C726A /* DriverSelectionView.swift in Sources */,
 				AF796D0A2A2FB219002F23A9 /* DeliveryModel.swift in Sources */,
 				AF796CF32A2FB0E7002F23A9 /* Item.swift in Sources */,
 				AF796D0D2A2FB219002F23A9 /* LocationModel.swift in Sources */,
 				AF796CEA2A2FB0E6002F23A9 /* PackageDeliverySwiftUIApp.swift in Sources */,
 				AF982AB22A30647D002432FB /* MapView.swift in Sources */,
-				AF796D0F2A2FB219002F23A9 /* VehicleTypeModel.swift in Sources */,
+				AF796D0F2A2FB219002F23A9 /* EVehicleType.swift in Sources */,
 				AF796D0B2A2FB219002F23A9 /* EWeatherType.swift in Sources */,
 				AF982AB42A3064E8002432FB /* LocationDetailView.swift in Sources */,
 				AF796D0E2A2FB219002F23A9 /* AddressModel.swift in Sources */,
@@ -253,6 +300,7 @@
 				AF796D072A2FB219002F23A9 /* DriverModel.swift in Sources */,
 				AF2916BF2A2FB7C5001EC45A /* HomeViewModel.swift in Sources */,
 				AF796D0C2A2FB219002F23A9 /* DeliveryStatusModel.swift in Sources */,
+				AFDBF0EF2A31F531003C726A /* PackageSelectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
