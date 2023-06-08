@@ -5,7 +5,7 @@
 //  Created by Baris OZGEN on 1.06.2023.
 //
 
-import Foundation
+import SwiftUI
 enum EVehicleType: Int, CaseIterable, Identifiable {
     case bicycle
     case scooter
@@ -30,9 +30,9 @@ enum EVehicleType: Int, CaseIterable, Identifiable {
     var speedKmHour: Double {
         switch self {
         case .bicycle:
-            return 15.0
+            return 35.0
         case .scooter:
-            return 30.0
+            return 70.0
         case .car:
             return 100
         case .van:
@@ -69,6 +69,31 @@ enum EVehicleType: Int, CaseIterable, Identifiable {
             return []
         case .van:
             return []
+        }
+    }
+    var image: String {
+        switch self {
+        case .bicycle: return "bicycle"
+        case .scooter: return "figure.outdoor.cycle"
+        case .car: return "car"
+        case .van: return "box.truck"
+        }
+    }
+    
+    var icon: String {
+        switch self {
+        case .bicycle: return "leaf.fill"
+        case .scooter: return "speedometer"
+        case .car: return "bolt.shield"
+        case .van: return "person.3.fill"
+        }
+    }
+    var iconColor: Color {
+        switch self {
+        case .bicycle: return .green
+        case .scooter: return .cyan
+        case .car: return Color(.systemBlue)
+        case .van: return .gray
         }
     }
 }
