@@ -7,44 +7,69 @@
 
 import SwiftUI
 import MapKit
+import Combine
+class LocationDetailViewModel: ObservableObject {
+    @Published var lookAroundScene: MKLookAroundScene?
+    @Published var route: MKRoute?
+     @Published var selectedItem = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)))
 
-struct LocationDetailView: View {
-    @Binding var selectedItem: MKMapItem?
-    @State private var lookAroundScene: MKLookAroundScene?
-    @Binding var route: MKRoute?
     
-    private var travelTime: String? {
-        guard let route else { return nil }
-        let formatter = DateComponentsFormatter ()
-        formatter.unitsStyle = .abbreviated
-        formatter.allowedUnits = [.hour, .minute]
-        return formatter.string (from: route.expectedTravelTime)
-    }
-    
-    func getLookAroundScene(){
+    func getLookAroundScene() {
         lookAroundScene = nil
-        Task{
-          //  if let selectedItem = selectedItem {
-                let request = MKLookAroundSceneRequest(mapItem: MKMapItem(placemark: MKPlacemark(coordinate: .loc1)))
-                lookAroundScene = try await request.scene
-         //   }
+        Task {
+            let request = MKLookAroundSceneRequest(mapItem: selectedItem)
+            do {
+                let scene = try await request.scene
+                DispatchQueue.main.async {
+                    self.lookAroundScene = scene
+                }
+            } catch {
+                // Handle any errors that occur during the async operation
+                print("Error: \(error)")
+            }
         }
     }
     
     func getDirections() {
         route = nil
-      //  guard let selectedItem else { return }
         let request = MKDirections.Request()
-        request.source = MKMapItem(placemark: MKPlacemark(coordinate: .loc3))
-        request.destination =  MKMapItem(placemark: MKPlacemark(coordinate: .loc1))//selectedItem
+        request.source = selectedItem
+        request.destination =  MKMapItem(placemark: MKPlacemark(coordinate: .loc12))
+        request.transportType = .automobile
+        
         Task {
             let directions = MKDirections(request: request)
-            let response = try? await directions.calculate()
-            route = response?.routes.first
+            do {
+                let response = try await directions.calculate()
+                DispatchQueue.main.async {
+                    self.route = response.routes.first
+                }
+            } catch {
+                // Handle any errors that occur during the async operation
+                print("Error: \(error)")
+            }
         }
     }
+}
+
+struct LocationDetailView: View {
+    let selectedItem: MKMapItem
+    @ObservedObject var vm = LocationDetailViewModel()
+    
+    var travelTime: String? {
+       /* guard let vm.route else { return nil }
+        let formatter = DateComponentsFormatter ()
+        formatter.unitsStyle = .abbreviated
+        formatter.allowedUnits = [.hour, .minute]
+        return formatter.string (from: vm.route.expectedTravelTime)*/
+        return "3m"
+    }
+    init(){
+        self.selectedItem = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: 42.547918, longitude: -70.870583)))
+    }
+    
     var body: some View {
-        LookAroundPreview(initialScene: lookAroundScene)
+        LookAroundPreview(initialScene: vm.lookAroundScene)
             .overlay(alignment: .bottomLeading){
                 VStack(alignment: .leading){
                     Text("Hey Baris!")
@@ -52,7 +77,7 @@ struct LocationDetailView: View {
                     Text("Confirm the pickup location for your package.")
                         .font(.title3)
                     HStack{
-                        Text(selectedItem?.name ?? "not selected")
+                        Text(selectedItem.name ?? "not selected")
                         if let travelTime {
                             Text(travelTime)
                         }
@@ -65,21 +90,15 @@ struct LocationDetailView: View {
                 .padding(.bottom, 58)
             }
             .onAppear{
-                getDirections()
-                getLookAroundScene()
+                vm.getLookAroundScene()
+                vm.getDirections()
             }
-            .onChange(of: selectedItem, {
-                getLookAroundScene()
-            })
-            .onChange(of: selectedItem, {
-                getDirections()
-            })
-            .background(.thinMaterial)
+        //.background(.thinMaterial)
             .presentationDetents([.fraction(0.29)])
             .ignoresSafeArea()
     }
 }
 
 #Preview {
-    LocationDetailView(selectedItem: .constant(MKMapItem(placemark: MKPlacemark(coordinate: .loc1, addressDictionary: ["title":"Dumbo"]))), route: .constant(MKRoute()))
+    LocationDetailView()
 }

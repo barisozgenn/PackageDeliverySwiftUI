@@ -47,6 +47,7 @@
 		AF796D052A2FB219002F23A9 /* VehicleTypeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VehicleTypeModel.swift; sourceTree = "<group>"; };
 		AF982AB12A30647D002432FB /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		AF982AB32A3064E8002432FB /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
+		AFDBF0E72A31B97E003C726A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +105,7 @@
 		AF796CE82A2FB0E6002F23A9 /* PackageDeliverySwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				AFDBF0E72A31B97E003C726A /* Info.plist */,
 				AF982AAF2A30645D002432FB /* Map */,
 				AF796CF92A2FB1EC002F23A9 /* App */,
 				AF796CED2A2FB0E7002F23A9 /* Assets.xcassets */,
@@ -387,6 +389,7 @@
 				DEVELOPMENT_TEAM = SHP38F3EM7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PackageDeliverySwiftUI/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -416,6 +419,7 @@
 				DEVELOPMENT_TEAM = SHP38F3EM7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PackageDeliverySwiftUI/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -16,8 +16,11 @@ struct HomeView: View {
     
     var body: some View {
         ZStack{
-            MapView(selectedItem: $selectedItem)
+            MapMainView()
+            //MapView(selectedItem: $selectedItem)
+            //LocationDetailView()
             Text("\(selectedItem?.name ?? "none")")
+            
         }
         
         
