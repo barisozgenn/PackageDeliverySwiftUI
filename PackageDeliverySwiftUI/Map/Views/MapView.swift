@@ -35,7 +35,7 @@ class MapViewModel: ObservableObject {
     init(selectedItem: MKMapItem?) {
         self.selectedItem = selectedItem
     }
-    func getDirections2() {
+    func getDirectionsPolyLine() {
             let request = MKDirections.Request()
             request.source = selectedItem
         request.destination = MKMapItem(placemark: MKPlacemark(coordinate: .loc10)) // Replace with destination coordinates
@@ -53,7 +53,7 @@ class MapViewModel: ObservableObject {
         route = nil
         let request = MKDirections.Request()
         request.source = selectedItem
-        request.destination =  MKMapItem(placemark: MKPlacemark(coordinate: .loc12))
+        request.destination =  MKMapItem(placemark: MKPlacemark(coordinate: .loc9))
         request.transportType = .automobile
         
         Task {
@@ -114,21 +114,14 @@ struct MapView: View {
         self.cameraCoordinate = cameraCoordinate
         vm = MapViewModel(selectedItem: selectedItem)
         vm.getDirections()
-        vm.getDirections2()
     }
     
     var body: some View {
         Map(position: $position, selection: $vm.selectedItem) {
          
-             // Unfortunatelly it gives many errors in beta version so I defined all locs manually
-            if let routePolyline = vm.routePolyline {
-                MapPolyline(routePolyline)
-                    .stroke(.blue, lineWidth: 5)
-            }else{
-            }
             if let route = vm.route {
                 MapPolyline(route)
-                    .stroke(.blue, lineWidth: 5)
+                    .stroke(gradientWalk, style: strokeWalk)
             }
              
             /*MapPolyline(coordinates: [.loc12, .loc3,])

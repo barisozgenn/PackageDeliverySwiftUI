@@ -9,11 +9,28 @@ import SwiftUI
 
 struct PackageSelectionView: View {
     @State var packages: [EPackageType] = [.xs,.s,.m,.l]
-
+    @State var selectionId: EPackageType.ID? = EPackageType.xs.id
+    @State var buttonText = EPackageType.xs.title
     var body: some View {
         ScrollView {
-            PackagePackageSection(packages: packages)
+            PackagesSection(packages: packages, selectionId: $selectionId)
+            Button(action: {}) {
+                VStack{
+                    Text("Choose \(buttonText)")
+                        .foregroundStyle(.white)
+                        .bold()
+                }
+                .padding()
+                .padding(.horizontal, 29)
+                .background(.blue)
+                .clipShape(.rect(cornerRadius: 14.0))
+            }
+            .onChange(of: selectionId){ oldOne, newOne in
+                buttonText = packages.first(where: {$0.id == newOne})!.title
+            }
         }
+        .padding(.top)
+        .background(.clear)
     }
 }
 
@@ -22,15 +39,15 @@ struct PackageSelectionView: View {
 }
 
 
-struct PackagePackageSection: View {
+struct PackagesSection: View {
     var packages: [EPackageType]
-    @State var mainID: Int? = nil
-
+    @Binding var selectionId: EPackageType.ID?
+    
     var body: some View {
         PackageSection(edge: .top) {
-            PackageContentsView(packages: packages, mainID: $mainID)
+            PackageContentsView(packages: packages, selectionId: $selectionId)
         } label: {
-            PackageContentHeaderView(packages: packages, mainID: $mainID)
+            PackageContentHeaderView(packages: packages, selectionId: $selectionId)
         }
     }
 }
@@ -39,7 +56,7 @@ struct PackageSection<Content: View, Label: View>: View {
     var edge: Edge? = nil
     @ViewBuilder var content: Content
     @ViewBuilder var label: Label
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             label
@@ -54,80 +71,114 @@ struct PackageSection<Content: View, Label: View>: View {
             }
         }
     }
-
+    
     var halfSpacing: CGFloat {
         sectionSpacing / 2.0
     }
-
+    
     var sectionSpacing: CGFloat {
         20.0
     }
-
+    
     var hMargin: CGFloat {
-        #if os(macOS)
-        40.0
-        #else
         20.0
-        #endif
     }
 }
 
 struct PackageContentsView: View {
     var packages: [EPackageType]
-    @Binding var mainID: EPackageType.ID?
-
+    @Binding var selectionId: EPackageType.ID?
+    
     var body: some View {
         ScrollView(.horizontal) {
             LazyHStack(spacing: hSpacing) {
                 ForEach(packages) { package in
-                    PackageHeroView(package: package)
+                    PackageDetailView(package: package)
                 }
             }
             .scrollTargetLayout()
         }
         .contentMargins(.horizontal, hMargin)
         .scrollTargetBehavior(.viewAligned)
-        .scrollPosition(id: $mainID)
+        .scrollPosition(id: $selectionId)
         .scrollIndicators(.never)
+       
     }
-
+    
     var hMargin: CGFloat {
         20.0
     }
-
+    
     var hSpacing: CGFloat {
         10.0
     }
 }
 
-struct PackageHeroView: View {
+struct PackageDetailView: View {
     var package: EPackageType
-
+    
     @Environment(\.horizontalSizeClass) private var sizeClass
-
+    
     var body: some View {
         
         ZStack{
             colorStack
-            Text(package.title)
-        }
-            .aspectRatio(heroRatio, contentMode: .fit)
-            .containerRelativeFrame(
-                [.horizontal], count: columns, spacing: hSpacing
-            )
-            .clipShape(.rect(cornerRadius: 29.0))
-            .scrollTransition(axis: .horizontal) { content, phase in
-                content
-                    .scaleEffect(
-                        x: phase.isIdentity ? 1.0 : 0.7,
-                        y: phase.isIdentity ? 1.0 : 0.7)
+            HStack(alignment: .center){
+                VStack{
+                    Image(systemName: "shippingbox.fill")
+                        .resizable()
+                        .frame(width: 128 + (package.maxHeight * 0.3),height: package.maxHeight)
+                    Text(package.title)
+                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                        .bold()
+                }
+                .foregroundStyle(.orange)
+                Spacer()
+                VStack{
+                    VStack(alignment: .trailing){
+                        Text("max")
+                            .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                            .bold()
+                            .foregroundStyle(.orange)
+                        Text("\(Int(package.maxKg))kg")
+                            .font(.largeTitle)
+                            .bold()
+                            .foregroundStyle(Color(.systemGray))
+                        Text("size")
+                            .font(.title2)
+                            .bold()
+                            .foregroundStyle(.orange)
+                        Text(package.boxSize)
+                            .font(.title3)
+                            .bold()
+                            .foregroundStyle(Color(.systemGray))
+                    }
+                    
+                }
+                
             }
+            .padding(.all)
+            .padding(.trailing,40)
+            .offset(y: -20)
+            
+        }
+        .aspectRatio(heroRatio, contentMode: .fit)
+        .containerRelativeFrame(
+            [.horizontal], count: columns, spacing: hSpacing
+        )
+        .clipShape(.rect(cornerRadius: 29.0))
+        .scrollTransition(axis: .horizontal) { content, phase in
+            content
+                .scaleEffect(
+                    x: phase.isIdentity ? 1.0 : 0.7,
+                    y: phase.isIdentity ? 1.0 : 0.7)
+        }
     }
-
+    
     private var columns: Int {
         sizeClass == .compact ? 1 : regularCount
     }
-
+    
     @ViewBuilder
     private var colorStack: some View {
         let offsetValue = stackPadding
@@ -137,24 +188,24 @@ struct PackageHeroView: View {
             Color(.systemGray4)
             Color(.systemGray6)
                 .offset(x: -offsetValue, y: -offsetValue)
-          
+            
         }
         .padding(stackPadding)
         .background()
     }
-
+    
     var stackPadding: CGFloat {
         20.0
     }
-
+    
     var heroRatio: CGFloat {
         16.0 / 9.0
     }
-
+    
     var regularCount: Int {
         2
     }
-
+    
     var hSpacing: CGFloat {
         10.0
     }
@@ -162,50 +213,42 @@ struct PackageHeroView: View {
 
 struct PackageContentHeaderView: View {
     var packages: [EPackageType]
-    @Binding var mainID: Int?
-
+    @Binding var selectionId: Int?
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 2.0) {
             Text("Package Selection")
                 .foregroundStyle(.primary)
+                .font(.title2)
+                .bold()
+            Text("Please select the package type for your intended delivery.")
+                .foregroundStyle(.secondary)
+                .font(.headline)
             Spacer().frame(maxWidth: .infinity)
         }
         .padding(.horizontal, hMargin)
-        #if os(macOS)
-        .overlay {
-            HStack(spacing: 0.0) {
-                PackagePaddle(edge: .leading) {
-                    scrollToPreviousID()
-                }
-                Spacer().frame(maxWidth: .infinity)
-                PackagePaddle(edge: .trailing) {
-                    scrollToNextID()
-                }
-            }
-        }
-        #endif
     }
-
+    
     private func scrollToNextID() {
-        guard let id = mainID, id != packages.last?.id,
+        guard let id = selectionId, id != packages.last?.id,
               let index = packages.firstIndex(where: { $0.id == id })
         else { return }
-
+        
         withAnimation {
-            mainID = packages[index + 1].id
+            selectionId = packages[index + 1].id
         }
     }
-
+    
     private func scrollToPreviousID() {
-        guard let id = mainID, id != packages.first?.id,
+        guard let id = selectionId, id != packages.first?.id,
               let index = packages.firstIndex(where: { $0.id == id })
         else { return }
-
+        
         withAnimation {
-            mainID = packages[index - 1].id
+            selectionId = packages[index - 1].id
         }
     }
-
+    
     var hMargin: CGFloat {
         20.0
     }
@@ -214,7 +257,7 @@ struct PackageContentHeaderView: View {
 struct PackagePaddle: View {
     var edge: HorizontalEdge
     var action: () -> Void
-
+    
     var body: some View {
         Button {
             action()
@@ -224,7 +267,7 @@ struct PackagePaddle: View {
         .buttonStyle(.paddle)
         .font(nil)
     }
-
+    
     var labelText: String {
         switch edge {
         case .leading:
@@ -233,7 +276,7 @@ struct PackagePaddle: View {
             return "Forwards"
         }
     }
-
+    
     var labelIcon: String {
         switch edge {
         case .leading:

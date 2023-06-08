@@ -39,6 +39,18 @@ enum EPackageType: Int, CaseIterable, Identifiable {
             return 999.0
         }
     }
+    var maxHeight: Double {
+        switch self {
+        case .xs:
+            return 45
+        case .s:
+            return 70
+        case .m:
+            return 90
+        case .l:
+            return 114
+        }
+    }
     var title: String {
         switch self {
         case .xs: return "XS"
@@ -49,18 +61,18 @@ enum EPackageType: Int, CaseIterable, Identifiable {
     }
     var boxSize: String {
         switch self {
-        case .xs: return "40x40x40"
-        case .s: return "70x80x80"
+        case .xs: return "40x20x40"
+        case .s: return "70x40x80"
         case .m: return "120x70x90"
         case .l: return "180x100x90"
         }
     }
     var boxPicture: String {
         switch self {
-        case .xs: return "40x40x40"
-        case .s: return "70x80x80"
-        case .m: return "120x70x90"
-        case .l: return "180x100x90"
+        case .xs: return ""
+        case .s: return ""
+        case .m: return ""
+        case .l: return ""
         }
     }
 }
