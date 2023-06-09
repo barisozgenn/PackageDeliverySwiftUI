@@ -13,9 +13,10 @@ This is a package delivery SwiftUI app that leverages the latest features announ
 - Enhances the user experience by enabling more precise control over focus behavior.
 
 ### MapKit Integration
-- Utilizes the new MapKit framework for displaying maps and annotating locations.
-- Includes support for drawing circles, polylines, and polygons on the map.
-- Enhances the visual representation of package delivery routes and locations.
+  Utilizes the new MapKit framework for displaying maps and annotating locations.Includes support for drawing circles, polylines, and polygons on the map.Enhances the visual representation of package delivery routes and locations.
+  - LookAroundPreview
+  - Marker & Annotation
+  - MapCamera
 
 ### Animated Symbols with Symbols Framework
 - Leverages the new Symbols framework to animate symbols and icons.
@@ -40,8 +41,7 @@ This is a package delivery SwiftUI app that leverages the latest features announ
 ### Observation
 Leverages the Observation feature to efficiently monitor changes and update the UI.
  Provides real-time updates to the user interface based on data changes.
-- Macro
-- Property changes cause Ul updates
+- Observable
 - Bindable
 
 ## Installation

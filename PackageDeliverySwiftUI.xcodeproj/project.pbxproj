@@ -35,6 +35,7 @@
 		AF9BAFB52A3327F0006AEAA3 /* PackageContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9BAFB42A3327F0006AEAA3 /* PackageContentsView.swift */; };
 		AF9BAFB72A332830006AEAA3 /* PackagesSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9BAFB62A332830006AEAA3 /* PackagesSection.swift */; };
 		AF9BAFB92A333811006AEAA3 /* NewMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9BAFB82A333811006AEAA3 /* NewMapView.swift */; };
+		AF9BAFBB2A336182006AEAA3 /* LinearGradient+StrokeStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9BAFBA2A336182006AEAA3 /* LinearGradient+StrokeStyle.swift */; };
 		AFDBF0ED2A31EEA8003C726A /* VehicleSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDBF0EC2A31EEA8003C726A /* VehicleSelectionView.swift */; };
 		AFDBF0EF2A31F531003C726A /* PackageSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDBF0EE2A31F531003C726A /* PackageSelectionView.swift */; };
 /* End PBXBuildFile section */
@@ -69,6 +70,7 @@
 		AF9BAFB42A3327F0006AEAA3 /* PackageContentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageContentsView.swift; sourceTree = "<group>"; };
 		AF9BAFB62A332830006AEAA3 /* PackagesSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesSection.swift; sourceTree = "<group>"; };
 		AF9BAFB82A333811006AEAA3 /* NewMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMapView.swift; sourceTree = "<group>"; };
+		AF9BAFBA2A336182006AEAA3 /* LinearGradient+StrokeStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LinearGradient+StrokeStyle.swift"; sourceTree = "<group>"; };
 		AFDBF0E72A31B97E003C726A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AFDBF0EC2A31EEA8003C726A /* VehicleSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleSelectionView.swift; sourceTree = "<group>"; };
 		AFDBF0EE2A31F531003C726A /* PackageSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageSelectionView.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				AF9BAFA72A330621006AEAA3 /* CLLocationCoordinate2D.swift */,
+				AF9BAFBA2A336182006AEAA3 /* LinearGradient+StrokeStyle.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				AF9BAFAF2A332636006AEAA3 /* VehicleContentsView.swift in Sources */,
 				AF796D0C2A2FB219002F23A9 /* DeliveryStatusModel.swift in Sources */,
 				AFDBF0EF2A31F531003C726A /* PackageSelectionView.swift in Sources */,
+				AF9BAFBB2A336182006AEAA3 /* LinearGradient+StrokeStyle.swift in Sources */,
 				AF9BAFAA2A331923006AEAA3 /* MapScenarioDriverSearch.swift in Sources */,
 				AF9BAFB72A332830006AEAA3 /* PackagesSection.swift in Sources */,
 				AF9BAFB52A3327F0006AEAA3 /* PackageContentsView.swift in Sources */,

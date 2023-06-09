@@ -19,23 +19,14 @@ struct MapMainView: View {
     @State private var focusedRegion: MKCoordinateRegion?
     @State private var riderLocation: CLLocationCoordinate2D = .loc12
     
-    let gradientWalk = LinearGradient(
-        colors: [.orange, .green, .blue],
-        startPoint: .leading, endPoint: .trailing)
-    let strokeWalk = StrokeStyle(
-        lineWidth: 5,
-        lineCap: .round, lineJoin: .bevel, dash: [10, 10])
     
-    let gradientDrive = LinearGradient(
-        colors: [.blue, .green],
-        startPoint: .leading, endPoint: .trailing)
     
     var body: some View {
         Map(position: $position, selection: $selectedItem) {
          
             if let route = vm.route {
                 MapPolyline(route)
-                    .stroke(gradientWalk, style: strokeWalk)
+                  //  .stroke(.gradientWalk, style: .strokeWalk)
             }
              
             /*MapPolyline(coordinates: [.loc12, .loc3,])
