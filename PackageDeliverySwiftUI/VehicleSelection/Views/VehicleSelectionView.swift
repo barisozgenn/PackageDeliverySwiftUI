@@ -11,7 +11,7 @@ struct VehicleSelectionView: View {
     let selectedPackage : EPackageType
     let km: Double
     
-    @State var vehicles: [EVehicleType] = [.bicycle,.scooter,.car,.van]
+    @State var vehicles: [EVehicleType] = EVehicleType.allCases//[.bicycle,.scooter,.car,.van]
     @State var selectionId: EVehicleType.ID? = EVehicleType.bicycle.id
     @State var buttonText = ""
     

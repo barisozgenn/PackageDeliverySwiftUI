@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PackageSelectionView: View {
-    @State var packages: [EPackageType] = [.xs,.s,.m,.l]
+    @State var packages: [EPackageType] = EPackageType.allCases//[.xs,.s,.m,.l]
     @State var selectionId: EPackageType.ID? = EPackageType.xs.id
     @State var buttonText = EPackageType.xs.title
     var body: some View {

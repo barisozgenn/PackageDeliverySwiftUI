@@ -38,8 +38,11 @@ This is a package delivery SwiftUI app that leverages the latest features announ
 - Enables seamless integration and handling of data in the app.
 
 ### Observation
-- Leverages the Observation feature to efficiently monitor changes and update the UI.
-- Provides real-time updates to the user interface based on data changes.
+Leverages the Observation feature to efficiently monitor changes and update the UI.
+ Provides real-time updates to the user interface based on data changes.
+- Macro
+- Property changes cause Ul updates
+- Bindable
 
 ## Installation
 

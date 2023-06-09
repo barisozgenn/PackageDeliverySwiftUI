@@ -25,6 +25,8 @@
 		AF796D0F2A2FB219002F23A9 /* EVehicleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF796D052A2FB219002F23A9 /* EVehicleType.swift */; };
 		AF982AB22A30647D002432FB /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF982AB12A30647D002432FB /* MapView.swift */; };
 		AF982AB42A3064E8002432FB /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF982AB32A3064E8002432FB /* LocationDetailView.swift */; };
+		AF9BAFA52A33050F006AEAA3 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9BAFA42A33050F006AEAA3 /* MapViewModel.swift */; };
+		AF9BAFA82A330621006AEAA3 /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9BAFA72A330621006AEAA3 /* CLLocationCoordinate2D.swift */; };
 		AFDBF0ED2A31EEA8003C726A /* VehicleSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDBF0EC2A31EEA8003C726A /* VehicleSelectionView.swift */; };
 		AFDBF0EF2A31F531003C726A /* PackageSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDBF0EE2A31F531003C726A /* PackageSelectionView.swift */; };
 /* End PBXBuildFile section */
@@ -49,6 +51,8 @@
 		AF796D052A2FB219002F23A9 /* EVehicleType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVehicleType.swift; sourceTree = "<group>"; };
 		AF982AB12A30647D002432FB /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		AF982AB32A3064E8002432FB /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
+		AF9BAFA42A33050F006AEAA3 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		AF9BAFA72A330621006AEAA3 /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
 		AFDBF0E72A31B97E003C726A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AFDBF0EC2A31EEA8003C726A /* VehicleSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleSelectionView.swift; sourceTree = "<group>"; };
 		AFDBF0EE2A31F531003C726A /* PackageSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageSelectionView.swift; sourceTree = "<group>"; };
@@ -109,6 +113,7 @@
 		AF796CE82A2FB0E6002F23A9 /* PackageDeliverySwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				AF9BAFA62A330614006AEAA3 /* Extensions */,
 				AFDBF0F02A31F697003C726A /* PackageSelection */,
 				AFDBF0E82A31EE54003C726A /* VehicleSelection */,
 				AFDBF0E72A31B97E003C726A /* Info.plist */,
@@ -159,6 +164,7 @@
 		AF982AAF2A30645D002432FB /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				AF9BAFA32A3304F5006AEAA3 /* ViewModel */,
 				AF982AB02A306466002432FB /* Views */,
 			);
 			path = Map;
@@ -171,6 +177,22 @@
 				AF982AB32A3064E8002432FB /* LocationDetailView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		AF9BAFA32A3304F5006AEAA3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				AF9BAFA42A33050F006AEAA3 /* MapViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		AF9BAFA62A330614006AEAA3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AF9BAFA72A330621006AEAA3 /* CLLocationCoordinate2D.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		AFDBF0E82A31EE54003C726A /* VehicleSelection */ = {
@@ -294,7 +316,9 @@
 				AF982AB22A30647D002432FB /* MapView.swift in Sources */,
 				AF796D0F2A2FB219002F23A9 /* EVehicleType.swift in Sources */,
 				AF796D0B2A2FB219002F23A9 /* EWeatherType.swift in Sources */,
+				AF9BAFA52A33050F006AEAA3 /* MapViewModel.swift in Sources */,
 				AF982AB42A3064E8002432FB /* LocationDetailView.swift in Sources */,
+				AF9BAFA82A330621006AEAA3 /* CLLocationCoordinate2D.swift in Sources */,
 				AF796D0E2A2FB219002F23A9 /* AddressModel.swift in Sources */,
 				AF796D082A2FB219002F23A9 /* UserTypeModel.swift in Sources */,
 				AF796D072A2FB219002F23A9 /* DriverModel.swift in Sources */,
