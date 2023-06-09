@@ -10,25 +10,7 @@ import MapKit
 
 
 struct MapMainView: View {
-    let arr: [CLLocationCoordinate2D] = [.loc1, .loc2, .loc3, .loc4, .loc5, .loc6, .loc7, .loc8, .loc9, .loc10, .loc11, .loc12]
-    @State var cameraCoordinate: CLLocationCoordinate2D = .loc1
-    var selectedItem: MKMapItem? =  MKMapItem(placemark: MKPlacemark(coordinate: .loc1))
-    var body: some View {
-        TimelineView(.periodic(from: .now, by: 4.5)) { timeline in
-            
-            let cameraCoordinate: CLLocationCoordinate2D =  arr[2]
-            
-            VStack{
-                MapView(vm: MapViewModel(), cameraCoordinate: cameraCoordinate)
-                //LocationDetailView()
-            }
-           
-        }
-    }
-}
-
-struct MapView: View {
-    /*@ObservedObject*/ var vm: MapViewModel
+    /*@ObservedObject*/ @Bindable var vm: MapViewModel
     var cameraCoordinate: CLLocationCoordinate2D
     @State private var selectedItem: MKMapItem? = MKMapItem(placemark: MKPlacemark(coordinate: .loc1))
     @State private var locationSelectedSheet: Bool = false
@@ -98,7 +80,7 @@ struct MapView: View {
             }
             .annotationTitles(.hidden)
         }
-        .mapStyle(.standard(elevation: .realistic))
+        //.mapStyle(.standard(elevation: .realistic))
         .mapControls{
             MapUserLocationButton()
             MapCompass()
@@ -107,7 +89,8 @@ struct MapView: View {
         }
         .onAppear{
             if let selectedItem {
-                vm.getDirections(selectedItem: selectedItem)
+                //vm.getDirections(selectedItem: selectedItem)
+                vm.getDirectionsPolyLine(selectedItem: selectedItem)
             }
           
             withAnimation(.smooth(duration: 1, extraBounce: 2)){
@@ -124,19 +107,19 @@ struct MapView: View {
         }
         .onChange(of: selectedItem){
             if let selectedItem = selectedItem {
-                vm.getDirections(selectedItem: selectedItem)
+                //vm.getDirections(selectedItem: selectedItem)
+                vm.getDirectionsPolyLine(selectedItem: selectedItem)
+
             }
         }
         .onMapCameraChange { context in
             focusedRegion = context.region
         }
-        .sheet(isPresented: $locationSelectedSheet){
-            LocationDetailView()
-        }
+        
     }
 }
 
 #Preview {
-    MapMainView()
+    MapMainView(vm: MapViewModel(), cameraCoordinate: .loc3)
 }
 

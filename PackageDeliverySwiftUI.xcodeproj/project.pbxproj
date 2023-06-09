@@ -27,6 +27,14 @@
 		AF982AB42A3064E8002432FB /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF982AB32A3064E8002432FB /* LocationDetailView.swift */; };
 		AF9BAFA52A33050F006AEAA3 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9BAFA42A33050F006AEAA3 /* MapViewModel.swift */; };
 		AF9BAFA82A330621006AEAA3 /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9BAFA72A330621006AEAA3 /* CLLocationCoordinate2D.swift */; };
+		AF9BAFAA2A331923006AEAA3 /* MapScenarioDriverSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9BAFA92A331923006AEAA3 /* MapScenarioDriverSearch.swift */; };
+		AF9BAFAD2A33256E006AEAA3 /* VehiclesSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9BAFAC2A33256E006AEAA3 /* VehiclesSection.swift */; };
+		AF9BAFAF2A332636006AEAA3 /* VehicleContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9BAFAE2A332636006AEAA3 /* VehicleContentsView.swift */; };
+		AF9BAFB12A33268C006AEAA3 /* VehicleContentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9BAFB02A33268C006AEAA3 /* VehicleContentHeaderView.swift */; };
+		AF9BAFB32A332795006AEAA3 /* PackageContentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9BAFB22A332795006AEAA3 /* PackageContentHeaderView.swift */; };
+		AF9BAFB52A3327F0006AEAA3 /* PackageContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9BAFB42A3327F0006AEAA3 /* PackageContentsView.swift */; };
+		AF9BAFB72A332830006AEAA3 /* PackagesSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9BAFB62A332830006AEAA3 /* PackagesSection.swift */; };
+		AF9BAFB92A333811006AEAA3 /* NewMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9BAFB82A333811006AEAA3 /* NewMapView.swift */; };
 		AFDBF0ED2A31EEA8003C726A /* VehicleSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDBF0EC2A31EEA8003C726A /* VehicleSelectionView.swift */; };
 		AFDBF0EF2A31F531003C726A /* PackageSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDBF0EE2A31F531003C726A /* PackageSelectionView.swift */; };
 /* End PBXBuildFile section */
@@ -53,6 +61,14 @@
 		AF982AB32A3064E8002432FB /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
 		AF9BAFA42A33050F006AEAA3 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		AF9BAFA72A330621006AEAA3 /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
+		AF9BAFA92A331923006AEAA3 /* MapScenarioDriverSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScenarioDriverSearch.swift; sourceTree = "<group>"; };
+		AF9BAFAC2A33256E006AEAA3 /* VehiclesSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehiclesSection.swift; sourceTree = "<group>"; };
+		AF9BAFAE2A332636006AEAA3 /* VehicleContentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleContentsView.swift; sourceTree = "<group>"; };
+		AF9BAFB02A33268C006AEAA3 /* VehicleContentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleContentHeaderView.swift; sourceTree = "<group>"; };
+		AF9BAFB22A332795006AEAA3 /* PackageContentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageContentHeaderView.swift; sourceTree = "<group>"; };
+		AF9BAFB42A3327F0006AEAA3 /* PackageContentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageContentsView.swift; sourceTree = "<group>"; };
+		AF9BAFB62A332830006AEAA3 /* PackagesSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesSection.swift; sourceTree = "<group>"; };
+		AF9BAFB82A333811006AEAA3 /* NewMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMapView.swift; sourceTree = "<group>"; };
 		AFDBF0E72A31B97E003C726A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AFDBF0EC2A31EEA8003C726A /* VehicleSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleSelectionView.swift; sourceTree = "<group>"; };
 		AFDBF0EE2A31F531003C726A /* PackageSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageSelectionView.swift; sourceTree = "<group>"; };
@@ -113,15 +129,12 @@
 		AF796CE82A2FB0E6002F23A9 /* PackageDeliverySwiftUI */ = {
 			isa = PBXGroup;
 			children = (
-				AF9BAFA62A330614006AEAA3 /* Extensions */,
-				AFDBF0F02A31F697003C726A /* PackageSelection */,
-				AFDBF0E82A31EE54003C726A /* VehicleSelection */,
 				AFDBF0E72A31B97E003C726A /* Info.plist */,
 				AF796CF22A2FB0E7002F23A9 /* Item.swift */,
 				AF796CED2A2FB0E7002F23A9 /* Assets.xcassets */,
 				AF796CF92A2FB1EC002F23A9 /* App */,
-				AF2916BB2A2FB33C001EC45A /* Home */,
-				AF982AAF2A30645D002432FB /* Map */,
+				AF9BAFAB2A331E28006AEAA3 /* Core */,
+				AF9BAFA62A330614006AEAA3 /* Extensions */,
 				AF796CFA2A2FB1F6002F23A9 /* Model */,
 				AF796CEF2A2FB0E7002F23A9 /* Preview Content */,
 			);
@@ -175,6 +188,8 @@
 			children = (
 				AF982AB12A30647D002432FB /* MapView.swift */,
 				AF982AB32A3064E8002432FB /* LocationDetailView.swift */,
+				AF9BAFA92A331923006AEAA3 /* MapScenarioDriverSearch.swift */,
+				AF9BAFB82A333811006AEAA3 /* NewMapView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -195,6 +210,17 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		AF9BAFAB2A331E28006AEAA3 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				AF2916BB2A2FB33C001EC45A /* Home */,
+				AF982AAF2A30645D002432FB /* Map */,
+				AFDBF0F02A31F697003C726A /* PackageSelection */,
+				AFDBF0E82A31EE54003C726A /* VehicleSelection */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		AFDBF0E82A31EE54003C726A /* VehicleSelection */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,7 +233,10 @@
 		AFDBF0E92A31EE6D003C726A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AF9BAFB02A33268C006AEAA3 /* VehicleContentHeaderView.swift */,
+				AF9BAFAE2A332636006AEAA3 /* VehicleContentsView.swift */,
 				AFDBF0EC2A31EEA8003C726A /* VehicleSelectionView.swift */,
+				AF9BAFAC2A33256E006AEAA3 /* VehiclesSection.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -230,7 +259,10 @@
 		AFDBF0F12A31F6A1003C726A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AF9BAFB22A332795006AEAA3 /* PackageContentHeaderView.swift */,
+				AF9BAFB42A3327F0006AEAA3 /* PackageContentsView.swift */,
 				AFDBF0EE2A31F531003C726A /* PackageSelectionView.swift */,
+				AF9BAFB62A332830006AEAA3 /* PackagesSection.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -313,18 +345,26 @@
 				AF796CF32A2FB0E7002F23A9 /* Item.swift in Sources */,
 				AF796D0D2A2FB219002F23A9 /* LocationModel.swift in Sources */,
 				AF796CEA2A2FB0E6002F23A9 /* PackageDeliverySwiftUIApp.swift in Sources */,
+				AF9BAFAD2A33256E006AEAA3 /* VehiclesSection.swift in Sources */,
 				AF982AB22A30647D002432FB /* MapView.swift in Sources */,
+				AF9BAFB92A333811006AEAA3 /* NewMapView.swift in Sources */,
 				AF796D0F2A2FB219002F23A9 /* EVehicleType.swift in Sources */,
 				AF796D0B2A2FB219002F23A9 /* EWeatherType.swift in Sources */,
 				AF9BAFA52A33050F006AEAA3 /* MapViewModel.swift in Sources */,
 				AF982AB42A3064E8002432FB /* LocationDetailView.swift in Sources */,
 				AF9BAFA82A330621006AEAA3 /* CLLocationCoordinate2D.swift in Sources */,
 				AF796D0E2A2FB219002F23A9 /* AddressModel.swift in Sources */,
+				AF9BAFB12A33268C006AEAA3 /* VehicleContentHeaderView.swift in Sources */,
 				AF796D082A2FB219002F23A9 /* UserTypeModel.swift in Sources */,
 				AF796D072A2FB219002F23A9 /* DriverModel.swift in Sources */,
 				AF2916BF2A2FB7C5001EC45A /* HomeViewModel.swift in Sources */,
+				AF9BAFB32A332795006AEAA3 /* PackageContentHeaderView.swift in Sources */,
+				AF9BAFAF2A332636006AEAA3 /* VehicleContentsView.swift in Sources */,
 				AF796D0C2A2FB219002F23A9 /* DeliveryStatusModel.swift in Sources */,
 				AFDBF0EF2A31F531003C726A /* PackageSelectionView.swift in Sources */,
+				AF9BAFAA2A331923006AEAA3 /* MapScenarioDriverSearch.swift in Sources */,
+				AF9BAFB72A332830006AEAA3 /* PackagesSection.swift in Sources */,
+				AF9BAFB52A3327F0006AEAA3 /* PackageContentsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,6 +502,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PackageDeliverySwiftUI/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "If your app requires continuous access to the user's location, even when the app is in the background, you need to include this key along with a description.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This key provides a description of why your app needs to access the user's location when the app is in use. Add a corresponding string value that explains the purpose to the user.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -492,6 +534,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PackageDeliverySwiftUI/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "If your app requires continuous access to the user's location, even when the app is in the background, you need to include this key along with a description.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This key provides a description of why your app needs to access the user's location when the app is in use. Add a corresponding string value that explains the purpose to the user.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

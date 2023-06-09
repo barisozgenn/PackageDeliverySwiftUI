@@ -16,7 +16,7 @@ struct HomeView: View {
     
     var body: some View {
         ZStack{
-            MapMainView()
+            MapMainView(vm: MapViewModel(), cameraCoordinate: .loc1)
                 .sheet(isPresented: .constant(true)){
                     /*PackageSelectionView()
                         .presentationDetents([
@@ -26,8 +26,12 @@ struct HomeView: View {
                         .presentationDetents([
                             .height(529),
                             .fraction(0.62)])
+                    /*LocationDetailView(vm: MapViewModel())
+                        .presentationDetents([
+                            .height(529),
+                            .fraction(0.42)])*/
                 }
-            //MapView(selectedItem: $selectedItem)
+           
             //LocationDetailView()
             Text("\(selectedItem?.name ?? "none")")
             
