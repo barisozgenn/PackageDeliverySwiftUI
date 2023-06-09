@@ -25,30 +25,32 @@ struct LocationDetailView: View {
             .overlay(alignment: .bottomLeading){
                 VStack(alignment: .leading){
                     Text("Hey Baris!")
-                        .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/, radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/, x:0, y:2)
+                        .shadow(color: .black, radius: 2, x:0, y:2)
                         .font(.title)
                     Text("Confirm the pickup location for your package.")
-                        .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/, radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/, x:0, y:2)
+                        .shadow(color: .black, radius: 2, x:0, y:2)
                         .font(.title3)
                     HStack{
                         Text(selectedItem.name ?? "not selected")
-                            .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/, radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/, x:0, y:2)
+                            .shadow(color: .black, radius: 2, x:0, y:2)
+
                         if let travelTime {
                             Text(travelTime)
                         }
                     }
                     confirmButton
                 }
-                .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/, radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/, x:0, y:2)
+                .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/, radius: 2, x:0, y:2)
                 .foregroundStyle(.white)
                 .fontDesign(.rounded)
                 .fontWidth(.expanded)
                 .padding()
                 .padding(.bottom, 58)
+                .background(.black.opacity(0.29))
             }
             .onAppear{
                 vm.getLookAroundScene(selectedItem: selectedItem)
-                vm.getDirections(selectedItem: selectedItem)
+                vm.getDirections(to: selectedItem)
             }
         //.background(.thinMaterial)
             .presentationDetents([.fraction(0.29)])

@@ -7,12 +7,14 @@
 import MapKit
 import Observation
 import SwiftUI
-@Observable class MapViewModel {
+@Observable class MapViewModel/*:ObservedObject*/ {
     /*@Published*/ var route: MKRoute? = MKRoute()
     /*@Published*/ var routePolyline: MKPolyline? = MKPolyline()
     /*@Published*/ var lookAroundScene: MKLookAroundScene? = nil
+    /*@Published*/ var searchResultsForDrivers: [MKMapItem] = []
     /*@Published*/ var searchResults: [MKMapItem] = []
-    
+    /*@Published*/ var myLocation: MKMapItem? = nil
+
     func getDirectionsPolyLine(selectedItem : MKMapItem) {
         let request = MKDirections.Request()
         request.source = MKMapItem(placemark: MKPlacemark(coordinate: .loc3)) // Replace with your pickup location
@@ -28,10 +30,11 @@ import SwiftUI
             }
         }
     }
-    func getDirections(selectedItem : MKMapItem) {
+    func getDirections(to selectedItem : MKMapItem) {
         route = nil
+        guard let pickupLocation = searchResultsForDrivers.first else {return} // for demo
         let request = MKDirections.Request()
-        request.source = MKMapItem(placemark: MKPlacemark(coordinate: .loc3)) // Replace with your pickup location
+        request.source = pickupLocation // Replace with your pickup location
         request.destination = selectedItem // Replace with destination coordinates
         request.transportType = .automobile
         
@@ -48,6 +51,7 @@ import SwiftUI
             }
         }
     }
+    //getLookAroundScene to see 360 photos from the location you select. It is not available for all locations for now as far as I see
     func getLookAroundScene(selectedItem : MKMapItem) {
         lookAroundScene = nil
         Task.detached {
@@ -63,19 +67,51 @@ import SwiftUI
             }
         }
     }
-   
-    func searchLocations(for query: String) {
+   //searchDriverLocations is a demo functions that you can collect drivers data that near your location
+    func searchDriverLocations() {
         let request = MKLocalSearch.Request ()
-        request.naturalLanguageQuery = query
+        request.naturalLanguageQuery = "coffee"
         request.resultTypes = .pointOfInterest
         request.region = MKCoordinateRegion(
-            center: .loc1,
+            center: .locU,// it demo center coordinate you can replace it user's current location
+            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        Task.detached {
+            let search = MKLocalSearch(request: request)
+            let response = try? await search.start()
+            DispatchQueue.main.async { [weak self] in
+                self?.searchResultsForDrivers = response?.mapItems ?? []
+            }
+        }
+    }
+    //searchLocations is a demo functions that you can search locations to show on the map
+    func searchLocations(for query: String, from location: CLLocationCoordinate2D) {
+        let request = MKLocalSearch.Request ()
+        request.naturalLanguageQuery = query
+        request.resultTypes = .address // here we are looking for the address we typed
+        request.region = MKCoordinateRegion(
+            center: location,
             span: MKCoordinateSpan(latitudeDelta: 0.007, longitudeDelta: 0.007))
         Task.detached {
             let search = MKLocalSearch(request: request)
             let response = try? await search.start()
             DispatchQueue.main.async { [weak self] in
                 self?.searchResults = response?.mapItems ?? []
+            }
+        }
+    }
+    //for demo replace it later
+    func searchMyLocation() {
+        let request = MKLocalSearch.Request ()
+        request.naturalLanguageQuery = "Coffee fellows"
+        request.resultTypes = .pointOfInterest // here we are looking for the address we typed
+        request.region = MKCoordinateRegion(
+            center: .locU,
+            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        Task.detached {
+            let search = MKLocalSearch(request: request)
+            let response = try? await search.start()
+            DispatchQueue.main.async { [weak self] in
+                self?.myLocation = response?.mapItems.first ?? nil
             }
         }
     }
