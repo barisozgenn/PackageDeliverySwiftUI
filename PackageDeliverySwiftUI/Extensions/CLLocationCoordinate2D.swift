@@ -9,8 +9,8 @@ import MapKit
 
 extension CLLocationCoordinate2D {
     //52.520958, 13.408547
-    static let locU = CLLocationCoordinate2D(latitude: 52.520958, longitude: 13.408547)
-    static let loc1 = CLLocationCoordinate2D(latitude: 40.755467, longitude: -73.986703)//my loc
+    static var locU = CLLocationCoordinate2D(latitude: 52.520958, longitude: 13.408547)//my demo location
+    static let loc1 = CLLocationCoordinate2D(latitude: 40.755467, longitude: -73.986703)
     static let loc2 = CLLocationCoordinate2D(latitude: 42.360106, longitude: -71.057409)
     static let loc3 = CLLocationCoordinate2D(latitude: 42.360106, longitude: -71.057009)//pickup loc
     

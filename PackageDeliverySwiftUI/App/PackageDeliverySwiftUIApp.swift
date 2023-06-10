@@ -13,8 +13,7 @@ struct PackageDeliverySwiftUIApp: App {
 
     var body: some Scene {
         WindowGroup {
-            //HomeView()
-            NewMapView()
+            HomeView()
         }
         .modelContainer(for: Item.self)
     }

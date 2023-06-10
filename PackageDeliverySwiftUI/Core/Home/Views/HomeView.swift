@@ -12,29 +12,35 @@ import MapKit
 struct HomeView: View {
     
     @State private var selectedItem: MKMapItem?
-    
-    
+    @Bindable private var mapViewModel = MapViewModel()
+    @State private var isPickupLocationSelected: Bool = false
+
     var body: some View {
         ZStack{
-            MapMainView(vm: MapViewModel(), cameraCoordinate: .loc1)
-                .sheet(isPresented: .constant(true)){
+            NewMapView(vm: mapViewModel, selectedItem: $selectedItem)
+                .sheet(isPresented: $isPickupLocationSelected){
                     /*PackageSelectionView()
                         .presentationDetents([
                             .height(429),
                             .fraction(0.54)])*/
-                    VehicleSelectionView(selectedPackage: .l, km: 14.29)
+                    /*VehicleSelectionView(selectedPackage: .l, km: 14.29)
                         .presentationDetents([
                             .height(529),
-                            .fraction(0.62)])
-                    /*LocationDetailView(vm: MapViewModel())
-                        .presentationDetents([
-                            .height(529),
-                            .fraction(0.42)])*/
+                            .fraction(0.62)])*/
+                
+                    if let selectedItem {
+                        LocationDetailView(selectedItem: selectedItem, vm: mapViewModel)
+                            .presentationDetents([
+                                .height(329),
+                                .fraction(0.62)])
+                    }
                 }
-           
-            //LocationDetailView()
-            Text("\(selectedItem?.name ?? "none")")
             
+        }
+        .onChange(of: selectedItem){oldV, newV in
+            if oldV != newV {
+                isPickupLocationSelected.toggle()
+            }
         }
     }
 }

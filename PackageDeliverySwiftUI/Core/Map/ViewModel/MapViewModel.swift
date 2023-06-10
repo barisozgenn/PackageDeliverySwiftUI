@@ -13,7 +13,7 @@ import SwiftUI
     /*@Published*/ var lookAroundScene: MKLookAroundScene? = nil
     /*@Published*/ var searchResultsForDrivers: [MKMapItem] = []
     /*@Published*/ var searchResults: [MKMapItem] = []
-    /*@Published*/ var myLocation: MKMapItem? = nil
+    /*@Published*/ var myLocation: [MKMapItem] = []
 
     func getDirectionsPolyLine(selectedItem : MKMapItem) {
         let request = MKDirections.Request()
@@ -102,16 +102,19 @@ import SwiftUI
     //for demo replace it later
     func searchMyLocation() {
         let request = MKLocalSearch.Request ()
-        request.naturalLanguageQuery = "Coffee fellows"
+        request.naturalLanguageQuery = "coffee fellows"
         request.resultTypes = .pointOfInterest // here we are looking for the address we typed
         request.region = MKCoordinateRegion(
             center: .locU,
-            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            span: MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002))
         Task.detached {
             let search = MKLocalSearch(request: request)
             let response = try? await search.start()
-            DispatchQueue.main.async { [weak self] in
-                self?.myLocation = response?.mapItems.first ?? nil
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.29) { [weak self] in
+                if let mapItems = response?.mapItems{
+                    self?.myLocation = [mapItems[0]]
+                    CLLocationCoordinate2D.locU = mapItems[0].placemark.coordinate
+                }
             }
         }
     }

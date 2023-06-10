@@ -9,11 +9,18 @@ import SwiftUI
 import _MapKit_SwiftUI
 
 struct NewMapView: View {
-    @Bindable var vm = MapViewModel()
-    @State private var cameraProsition: MapCameraPosition = .camera(MapCamera(centerCoordinate: .locU, distance: 1429, heading: 92, pitch: 70))
-    @State private var selectedItem: MKMapItem?
+    @Bindable var vm : MapViewModel
+    @State private var cameraProsition: MapCameraPosition = .camera(MapCamera(centerCoordinate: .locU, distance: 3729, heading: 92, pitch: 70))
+    @Binding var selectedItem: MKMapItem?
     @State private var locationSelectedSheet: Bool = false
     
+    @State private var colorMyPin: LinearGradient = LinearGradient(colors: [.red, .orange], startPoint: .top, endPoint: .center)
+    
+    func updateCameraPosition(focus centerCoordinate: CLLocationCoordinate2D, distance:Double,  heading: Double, pitch:Double){
+        withAnimation(.spring()){
+        cameraProsition = .camera(MapCamera(centerCoordinate: centerCoordinate, distance: distance, heading: heading, pitch: pitch))
+        }
+    }
     var body: some View {
         Map(position: $cameraProsition, interactionModes: .all, selection: $selectedItem){
             
@@ -22,7 +29,7 @@ struct NewMapView: View {
                 .annotationTitles(.automatic)
                 .tag("IAM")*/
            
-            ForEach(vm.searchResultsForDrivers, id: \.self){ result in
+            /*ForEach(vm.searchResultsForDrivers, id: \.self){ result in
                 let driver = EVehicleType.allCases.shuffled().first!
                 Annotation(driver.title, coordinate: result.placemark.coordinate) {
                     ZStack {
@@ -36,30 +43,44 @@ struct NewMapView: View {
                     
                 }
                 .annotationTitles(.automatic)
-            }
+            }*/
             if let route = vm.route {
                 MapPolyline(route)
                     .stroke(LinearGradient.gradientWalk, style: .strokeWalk)
             }
-            if let myLocation = vm.myLocation {
-                Annotation("You are here", coordinate: myLocation.placemark.coordinate) {
-                    ZStack {
-                        Circle()
-                            .fill(.blue)
-                            .shadow(color: .black, radius: 2)
-                        Text("Baris")
-                            .padding (7)
-                            .foregroundStyle(.white)
+           
+                ForEach(vm.myLocation, id: \.self){ result in
+                    Annotation("You are here", coordinate: result.placemark.coordinate) {
+                        Image("profil_photo_baris")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 48)
+                            .clipShape(Circle())
+                            .padding(4)
+                            .background(colorMyPin)
+                            .clipShape(Circle())
+                            .offset(y: -16)
+                            .overlay(alignment: .bottom) {
+                                Image(systemName: "triangle.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .foregroundStyle(colorMyPin)
+                                    .frame(width: 24)
+                                    .scaleEffect(y: -1)
+                                    
+                            }
+                            .onAppear{
+                                updateCameraPosition(focus: .locU, distance: 992, heading: 70, pitch: 60)
+                            }
                     }
-                    
+                    .annotationTitles(.automatic)
                 }
-                .mapOverlayLevel(level: 2)
-                .annotationTitles(.automatic)
+                
 
-            }
+            
         }
         .mapControls{
-            MapUserLocationButton()
+            //MapUserLocationButton()
             MapCompass()
             MapScaleView()
             MapPitchButton()
@@ -78,19 +99,12 @@ struct NewMapView: View {
         }
         .onChange(of: vm.searchResultsForDrivers){
             guard let searchResult = vm.searchResultsForDrivers.first else{return}
-            withAnimation(.smooth){
-                cameraProsition = .camera(MapCamera(centerCoordinate: .locU, distance: 2429, heading: 92, pitch: 70))
-            }
-        }
-        .safeAreaInset(edge: .bottom) {
-            if let selectedItem {
-                LocationDetailView(selectedItem: selectedItem, vm: vm)
-                    .frame(height: 300)
-            }
+            updateCameraPosition(focus: .locU, distance: 1429, heading: 92, pitch: 70)
+            
         }
     }
 }
 
 #Preview {
-    NewMapView()
+    NewMapView(vm: MapViewModel(), selectedItem: .constant(nil))
 }

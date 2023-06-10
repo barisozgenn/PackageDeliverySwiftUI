@@ -9,7 +9,7 @@ import SwiftUI
 
 extension LinearGradient {
     static let gradientWalk = LinearGradient(
-        colors: [.orange, .green, .blue],
+        colors: [.red, .orange, .yellow],
         startPoint: .leading, endPoint: .trailing)
     
     static let gradientDrive = LinearGradient(

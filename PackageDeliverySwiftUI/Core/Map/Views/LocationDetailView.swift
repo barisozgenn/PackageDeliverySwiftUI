@@ -9,7 +9,7 @@ import SwiftUI
 import MapKit
 
 struct LocationDetailView: View {
-    var selectedItem: MKMapItem
+    @State var selectedItem: MKMapItem
     @Bindable var vm : MapViewModel
     
     var travelTime: String? {
