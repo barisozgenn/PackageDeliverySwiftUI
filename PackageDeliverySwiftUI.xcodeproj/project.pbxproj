@@ -237,9 +237,9 @@
 		AF9BAFAB2A331E28006AEAA3 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				AF5075252A35C3EF00E589F0 /* Menu */,
 				AF2916BB2A2FB33C001EC45A /* Home */,
 				AF982AAF2A30645D002432FB /* Map */,
+				AF5075252A35C3EF00E589F0 /* Menu */,
 				AFDBF0F02A31F697003C726A /* PackageSelection */,
 				AFDBF0E82A31EE54003C726A /* VehicleSelection */,
 			);

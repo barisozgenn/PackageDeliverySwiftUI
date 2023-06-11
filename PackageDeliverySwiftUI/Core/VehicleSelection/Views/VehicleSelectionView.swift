@@ -14,11 +14,9 @@ struct VehicleSelectionView: View {
     @State var vehicles: [EVehicleType] = EVehicleType.allCases//[.bicycle,.scooter,.car,.van]
     @State var selectionId: EVehicleType.ID? = EVehicleType.bicycle.id
     @State var buttonText = ""
+    @Binding var selectedVehicle: EVehicleType?
+
     
-    init(selectedPackage : EPackageType, km: Double) {
-        self.selectedPackage = selectedPackage
-        self.km = km
-    }
     var body: some View {
         ScrollView {
             VehiclesSection(vehicles: vehicles, km: km, selectionId: $selectionId)
@@ -27,13 +25,18 @@ struct VehicleSelectionView: View {
         }
         .padding(.top)
         .background(.clear)
+        
     }
     
 }
 
 extension VehicleSelectionView {
     private var confirmButton : some View {
-        Button(action: {}) {
+        Button(action: {
+            if selectionId != nil {
+                selectedVehicle = vehicles.first(where: {$0.id == selectionId})
+            }
+        }) {
             HStack{
                 Spacer()
                 Text("Confirm \(buttonText)")
@@ -88,7 +91,7 @@ extension VehicleSelectionView {
     }
 }
 #Preview {
-    VehicleSelectionView(selectedPackage: .s, km: 14.29)
+    VehicleSelectionView(selectedPackage: .s, km: 14.29, selectedVehicle: .constant(.bicycle))
 }
 
 

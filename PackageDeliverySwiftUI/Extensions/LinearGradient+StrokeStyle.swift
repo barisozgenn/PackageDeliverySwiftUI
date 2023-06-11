@@ -18,10 +18,8 @@ extension LinearGradient {
 }
 
 extension RadialGradient {
-    static let gradientNextSteps = RadialGradient(colors: [.red, .orange, .yellow], center: .center,startRadius: 0,endRadius: 64)
-    static let gradientDoneSteps = RadialGradient(colors: [.cyan, .green], center: .center,startRadius: 0,endRadius: 64)
-    static let gradientWaitedSteps = RadialGradient(colors: [.gray, Color(.systemGray3),.gray
-                                                            ], center: .center,startRadius: 0,endRadius: 64)
+    static let gradientDoneSteps = RadialGradient(colors: [.red, .orange, .yellow], center: .center,startRadius: 0,endRadius: 64)
+    static let gradientWaitedSteps = RadialGradient(colors: [.gray, Color(.systemGray3)], center: .center,startRadius: 0,endRadius: 64)
 }
 extension StrokeStyle {
     static let strokeWalk = StrokeStyle(

@@ -12,6 +12,8 @@ struct NewMapView: View {
     @Bindable var vm : MapViewModel
     @State private var cameraProsition: MapCameraPosition = .camera(MapCamera(centerCoordinate: .locU, distance: 3729, heading: 92, pitch: 70))
     @Binding var selectedItem: MKMapItem?
+    @Binding var selectedStep : EDeliveryChoiceSteps
+
     @State private var locationSelectedSheet: Bool = false
     
     @State private var colorMyPin: LinearGradient = LinearGradient(colors: [.red, .orange], startPoint: .top, endPoint: .center)
@@ -102,9 +104,23 @@ struct NewMapView: View {
             updateCameraPosition(focus: .locU, distance: 1429, heading: 92, pitch: 70)
             
         }
+        .onChange(of: selectedStep){
+            withAnimation(.spring()){
+                switch selectedStep {
+                case .pickup:
+                    updateCameraPosition(focus: .locU, distance: 992, heading: 70, pitch: 60)
+                case .package:
+                    updateCameraPosition(focus: .locU, distance: 2729, heading: 92, pitch: 70)
+                case .dropoff:
+                    updateCameraPosition(focus: .locU, distance: 992, heading: 70, pitch: 60)
+                case .request:
+                    updateCameraPosition(focus: .locU, distance: 3729, heading: 92, pitch: 70)
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    NewMapView(vm: MapViewModel(), selectedItem: .constant(nil))
+    NewMapView(vm: MapViewModel(), selectedItem: .constant(nil), selectedStep: .constant(.pickup))
 }

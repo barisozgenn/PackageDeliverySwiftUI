@@ -11,6 +11,7 @@ import MapKit
 struct LocationDetailView: View {
     @State var selectedItem: MKMapItem
     @Bindable var vm : MapViewModel
+    @Binding var stepsDone: [EDeliveryChoiceSteps]
     
     var travelTime: String? {
         guard let route = vm.route else { return nil }
@@ -60,10 +61,12 @@ struct LocationDetailView: View {
 
 extension LocationDetailView{
     private var confirmButton : some View {
-        Button(action: {}) {
+        Button(action: {
+            !stepsDone.contains(.pickup) ? stepsDone.append(.pickup) : stepsDone.append(.dropoff)
+        }) {
             HStack{
                 Spacer()
-                Text("Confirm")
+                Text("Confirm \(!stepsDone.contains(.pickup) ? "Pickup" : "Drop Off")")
                     .foregroundStyle(.white)
                     .bold()
                 Spacer()
@@ -78,5 +81,5 @@ extension LocationDetailView{
     }
 }
 #Preview {
-    LocationDetailView(selectedItem: MKMapItem(placemark: MKPlacemark(coordinate: .loc1)), vm: MapViewModel())
+    LocationDetailView(selectedItem: MKMapItem(placemark: MKPlacemark(coordinate: .loc1)), vm: MapViewModel(), stepsDone: .constant([]))
 }

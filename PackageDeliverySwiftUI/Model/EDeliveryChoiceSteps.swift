@@ -33,7 +33,7 @@ enum EDeliveryChoiceSteps: Int, CaseIterable, Identifiable {
         }
     }
     
-    var angle: Double {
+    var scale: Double {
         switch self {
         case .pickup: return 1
         case .package: return 1
