@@ -44,11 +44,11 @@ struct HomeView: View {
                             .height(429),
                             .fraction(0.54)])
                     /*VehicleSelectionView(selectedPackage: .l, km: 14.29)
-                        .presentationDetents([
-                            .height(529),
-                            .fraction(0.62)])*/
-                
-                   
+                     .presentationDetents([
+                     .height(529),
+                     .fraction(0.62)])*/
+                    
+                    
                 }
             DeliveryChoiceStepsView(selectedStep: $selectedStep, stepsDone: $stepsDone, searchText: $searchText)
             
@@ -57,11 +57,11 @@ struct HomeView: View {
             stepsDone.forEach { step in
                 switch step {
                 case .pickup:
-                        isPickupLocationSelected = false
+                    isPickupLocationSelected = false
                     
                 case .dropoff:
                     isPickupLocationSelected = false
-                
+                    
                 default:
                     return
                 }
@@ -74,7 +74,7 @@ struct HomeView: View {
         }
         .onChange(of: selectedStep){oldV, newV in
             Task.detached {
-               
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.29) {
                     withAnimation(.spring()){
                         switch selectedStep {
@@ -100,11 +100,12 @@ struct HomeView: View {
                     }
                 }
             }
-           
         }
         .onChange(of: selectedPackage){oldV, newV in
             if oldV != newV && newV != nil {
                 isPackageSelected = false
+                if !stepsDone.contains(.package){ stepsDone.append(.package)
+                }
             }
         }
     }

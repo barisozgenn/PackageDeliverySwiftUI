@@ -16,7 +16,7 @@ struct DeliveryChoiceStepsView: View {
         return stepsDone.contains(step)
     }
     func canDropOffLocationSearch() -> Bool {
-        return selectedStep == .dropoff && stepsDone.contains(.pickup) && !stepsDone.contains(.dropoff)
+        return selectedStep == .dropoff && stepsDone.contains(.package) && !stepsDone.contains(.dropoff)
     }
     var body: some View {
         VStack{

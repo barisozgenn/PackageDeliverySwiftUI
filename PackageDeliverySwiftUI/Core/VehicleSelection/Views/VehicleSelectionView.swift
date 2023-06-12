@@ -25,7 +25,9 @@ struct VehicleSelectionView: View {
         }
         .padding(.top)
         .background(.clear)
-        
+        .onChange(of: selectionId){ oldOne, newOne in
+            buttonText = "\(String(format: "%.2f",vehicles.first(where: {$0.id == newOne!})!.pricePerKm * km))$"
+        }
     }
     
 }
@@ -50,9 +52,6 @@ extension VehicleSelectionView {
             .clipShape(.rect(cornerRadius: 14.0))
             .padding(.horizontal)
             .padding(.top,7)
-        }
-        .onChange(of: selectionId){ oldOne, newOne in
-            buttonText = "\(String(format: "%.2f",vehicles.first(where: {$0.id == newOne!})!.pricePerKm * km))$"
         }
     }
     private var paymentType : some View {
@@ -84,9 +83,9 @@ extension VehicleSelectionView {
         .cornerRadius(14)
         .padding(.horizontal)
         .onAppear{
-            buttonText = "\(String(format: "%.2f",vehicles.first(where: {$0.id == selectionId!})!.pricePerKm * km))$"
-            
-            vehicles = vehicles.filter{$0.maxPackageLimit.maxKg <= selectedPackage.maxKg}
+            /*buttonText = "\(String(format: "%.2f",vehicles.first(where: {$0.id == selectionId!})!.pricePerKm * km))$"
+            */
+            vehicles = vehicles.filter{$0.maxPackageLimit.maxKg >= selectedPackage.maxKg}
         }
     }
 }

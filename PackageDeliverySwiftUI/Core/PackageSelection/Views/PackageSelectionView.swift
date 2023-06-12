@@ -9,8 +9,8 @@ import SwiftUI
 
 struct PackageSelectionView: View {
     @State var packages: [EPackageType] = EPackageType.allCases//[.xs,.s,.m,.l]
-    @State var selectionId: EPackageType.ID? = EPackageType.xs.id
-    @State var buttonText = EPackageType.xs.title
+    @State var selectionId: EPackageType.ID? = 0
+    @State var buttonText: String = ""
     @Binding var selectedPackage: EPackageType?
 
     var body: some View {
@@ -31,8 +31,15 @@ struct PackageSelectionView: View {
                 .background(.blue)
                 .clipShape(.rect(cornerRadius: 14.0))
             }
-            .onChange(of: selectionId){ oldOne, newOne in
-                buttonText = packages.first(where: {$0.id == newOne})!.title
+            .onAppear{
+                /*if let newId = selectionId {
+                    buttonText =  packages.first(where: {$0.id == newId})!.title
+                }*/
+            }
+            .onChange(of: selectionId){
+                if let newId = selectionId {
+                    buttonText =  packages.first(where: {$0.id == newId})!.title
+                }
             }
         }
         .padding(.top)

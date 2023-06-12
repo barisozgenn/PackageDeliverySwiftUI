@@ -29,12 +29,16 @@ struct LocationDetailView: View {
         LookAroundPreview(initialScene: vm.lookAroundScene)
             .overlay(alignment: .bottomLeading){
                 VStack(alignment: .leading){
-                    Text("Hey Baris!")
-                        .shadow(color: .black, radius: 2, x:0, y:2)
-                        .font(.title)
-                    Text("Confirm the \(!stepsDone.contains(.pickup) ? "pickup" : "drop off") location for your package.")
-                        .shadow(color: .black, radius: 2, x:0, y:2)
-                        .font(.title3)
+                    VStack(alignment: .leading){
+                        Text("Hey Baris!")
+                            .shadow(color: .black, radius: 2, x:0, y:2)
+                            .font(.title)
+                        Text("Confirm the \(!stepsDone.contains(.pickup) ? "pickup" : "drop off") location for your package.")
+                            .shadow(color: .black, radius: 2, x:0, y:2)
+                            .font(.title3)
+                    }
+                    .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/, radius: 2, x:0, y:2)
+                   
                     HStack{
                         Text(selectedItem.name ?? "not selected")
                             .shadow(color: .black, radius: 2, x:0, y:2)
@@ -48,7 +52,7 @@ struct LocationDetailView: View {
                     }
                     confirmButton
                 }
-                .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/, radius: 2, x:0, y:2)
+               
                 .foregroundStyle(.white)
                 .fontDesign(.rounded)
                 .fontWidth(.expanded)

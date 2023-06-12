@@ -132,8 +132,8 @@
 			isa = PBXGroup;
 			children = (
 				AF5075272A35C42B00E589F0 /* DeliveryChoiceStepsView.swift */,
-				AF50752B2A36F5B200E589F0 /* SearchBarView.swift */,
 				AF50752D2A36FFB100E589F0 /* InputView.swift */,
+				AF50752B2A36F5B200E589F0 /* SearchBarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -188,17 +188,17 @@
 		AF796CFA2A2FB1F6002F23A9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				AF796CFC2A2FB219002F23A9 /* EPackageType.swift */,
-				AF796CFD2A2FB219002F23A9 /* DriverModel.swift */,
-				AF796CFE2A2FB219002F23A9 /* UserTypeModel.swift */,
-				AF796CFF2A2FB219002F23A9 /* UserModel.swift */,
-				AF796D002A2FB219002F23A9 /* DeliveryModel.swift */,
-				AF796D012A2FB219002F23A9 /* EWeatherType.swift */,
-				AF796D022A2FB219002F23A9 /* DeliveryStatusModel.swift */,
-				AF796D032A2FB219002F23A9 /* LocationModel.swift */,
 				AF796D042A2FB219002F23A9 /* AddressModel.swift */,
-				AF796D052A2FB219002F23A9 /* EVehicleType.swift */,
+				AF796D002A2FB219002F23A9 /* DeliveryModel.swift */,
+				AF796D022A2FB219002F23A9 /* DeliveryStatusModel.swift */,
+				AF796CFD2A2FB219002F23A9 /* DriverModel.swift */,
 				AF5075292A35CBEB00E589F0 /* EDeliveryChoiceSteps.swift */,
+				AF796CFC2A2FB219002F23A9 /* EPackageType.swift */,
+				AF796D052A2FB219002F23A9 /* EVehicleType.swift */,
+				AF796D012A2FB219002F23A9 /* EWeatherType.swift */,
+				AF796D032A2FB219002F23A9 /* LocationModel.swift */,
+				AF796CFF2A2FB219002F23A9 /* UserModel.swift */,
+				AF796CFE2A2FB219002F23A9 /* UserTypeModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -243,9 +243,9 @@
 		AF9BAFAB2A331E28006AEAA3 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				AF5075252A35C3EF00E589F0 /* Common */,
 				AF2916BB2A2FB33C001EC45A /* Home */,
 				AF982AAF2A30645D002432FB /* Map */,
-				AF5075252A35C3EF00E589F0 /* Common */,
 				AFDBF0F02A31F697003C726A /* PackageSelection */,
 				AFDBF0E82A31EE54003C726A /* VehicleSelection */,
 			);

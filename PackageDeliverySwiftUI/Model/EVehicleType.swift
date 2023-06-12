@@ -18,13 +18,13 @@ enum EVehicleType: Int, CaseIterable, Identifiable {
         
         switch self {
         case .bicycle:
-            return 1.5
+            return 0.729
         case .scooter:
-            return 2.0
+            return 1.29
         case .car:
-            return 3.5
+            return 2.29
         case .van:
-            return 5.0
+            return 3.58
         }
     }
     var speedKmHour: Double {
