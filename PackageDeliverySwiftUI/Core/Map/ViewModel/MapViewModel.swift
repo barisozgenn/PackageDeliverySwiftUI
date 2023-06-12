@@ -8,7 +8,9 @@ import MapKit
 import Observation
 import SwiftUI
 @Observable class MapViewModel/*:ObservedObject*/ {
-    /*@Published*/ var route: MKRoute? = MKRoute()
+    /*@Published*/ var routePickupToDropOff: MKRoute? = MKRoute()
+    /*@Published*/ var routeDriverToPickup: MKRoute? = MKRoute()
+
     /*@Published*/ var routePolyline: MKPolyline? = MKPolyline()
     /*@Published*/ var lookAroundScene: MKLookAroundScene? = nil
     /*@Published*/ var searchResultsForDrivers: [MKMapItem] = []
@@ -30,12 +32,16 @@ import SwiftUI
             }
         }
     }
-    func getDirections(to selectedItem : MKMapItem) {
-        route = nil
-        guard let pickupLocation = searchResultsForDrivers.first else {return} // for demo
+    func getDirections(from pickup: MKMapItem, to dropOff : MKMapItem, step selectedStep : EDeliveryChoiceSteps) {
+        if selectedStep == .dropoff {
+            routePickupToDropOff = nil
+        }else {
+            routeDriverToPickup = nil
+        }
+        //guard let pickupLocation = searchResultsForDrivers.first else {return} // for demo
         let request = MKDirections.Request()
-        request.source = pickupLocation // Replace with your pickup location
-        request.destination = selectedItem // Replace with destination coordinates
+        request.source = pickup // Replace with your pickup location
+        request.destination = dropOff // Replace with destination coordinates
         request.transportType = .automobile
         
         Task.detached {
@@ -43,7 +49,11 @@ import SwiftUI
             do {
                 let response = try await directions.calculate()
                 DispatchQueue.main.async { [weak self] in
-                    self?.route = response.routes.first
+                    if selectedStep == .dropoff {
+                        self?.routePickupToDropOff = response.routes.first
+                    }else {
+                        self?.routeDriverToPickup = response.routes.first
+                    }
                 }
             } catch {
                 // Handle any errors that occur during the async operation

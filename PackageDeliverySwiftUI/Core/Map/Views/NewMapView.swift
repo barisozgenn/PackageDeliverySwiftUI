@@ -11,10 +11,12 @@ import _MapKit_SwiftUI
 struct NewMapView: View {
     @Bindable var vm : MapViewModel
     @State private var cameraProsition: MapCameraPosition = .camera(MapCamera(centerCoordinate: .locU, distance: 3729, heading: 92, pitch: 70))
-    @Binding var selectedItem: MKMapItem?
-    @Binding var selectedStep : EDeliveryChoiceSteps
+    
+    @State var selectedItem: MKMapItem? = nil
+    @Binding var selectedPickupItem: MKMapItem?
+    @Binding var selectedDropOffItem: MKMapItem?
 
-    @State private var locationSelectedSheet: Bool = false
+    @Binding var selectedStep : EDeliveryChoiceSteps
     
     @State private var colorMyPin: LinearGradient = LinearGradient(colors: [.red, .orange], startPoint: .top, endPoint: .center)
     
@@ -26,27 +28,27 @@ struct NewMapView: View {
     var body: some View {
         Map(position: $cameraProsition, interactionModes: .all, selection: $selectedItem){
             
-            /*Marker("You are here", monogram: "Baris", coordinate:  .locU)
-                .tint(.blue)
-                .annotationTitles(.automatic)
-                .tag("IAM")*/
+            
            
-            /*ForEach(vm.searchResultsForDrivers, id: \.self){ result in
-                let driver = EVehicleType.allCases.shuffled().first!
-                Annotation(driver.title, coordinate: result.placemark.coordinate) {
-                    ZStack {
-                        Circle()
-                            .fill(driver.iconColor)
-                            .shadow(color: .black, radius: 2)
-                        Image(systemName: driver.image)
-                            .padding (7)
-                            .foregroundStyle(.white)
+            if selectedStep == .request {
+                ForEach(vm.searchResultsForDrivers, id: \.self){ result in
+                    let driver = EVehicleType.allCases.shuffled().first!
+                    Annotation(driver.title, coordinate: result.placemark.coordinate) {
+                        ZStack {
+                            Circle()
+                                .fill(driver.iconColor)
+                                .shadow(color: .black, radius: 2)
+                            Image(systemName: driver.image)
+                                .padding (7)
+                                .foregroundStyle(.white)
+                        }
+                        
                     }
-                    
+                    .annotationTitles(.automatic)
                 }
-                .annotationTitles(.automatic)
-            }*/
-            if let route = vm.route {
+            }
+            
+            if let route = vm.routePickupToDropOff {
                 MapPolyline(route)
                     .stroke(LinearGradient.gradientWalk, style: .strokeWalk)
             }
@@ -92,16 +94,30 @@ struct NewMapView: View {
             vm.searchMyLocation()
             vm.searchDriverLocations()
         }
-        .onChange(of: selectedItem){
+       .onChange(of: selectedItem){
             guard let selectedItem else {return}
-            //vm.getDirections(selectedItem: selectedItem)
-        }
-        .onChange(of: vm.searchResults){
-            guard let searchResult = vm.searchResults.first else {return}
+            if selectedStep == .pickup {
+                selectedPickupItem = selectedItem
+            }
+            if selectedStep == .dropoff {
+                selectedDropOffItem = selectedItem
+            }
+            if selectedStep == .dropoff,
+                let selectedPickupItem,
+                let selectedDropOffItem {
+                vm.getDirections(
+                    from: selectedPickupItem,
+                    to: selectedDropOffItem,
+                    step: selectedStep)
+            }
+           
         }
         .onChange(of: vm.searchResultsForDrivers){
-            guard let searchResult = vm.searchResultsForDrivers.first else{return}
             updateCameraPosition(focus: .locU, distance: 1429, heading: 92, pitch: 70)
+        }
+        .onChange(of: selectedDropOffItem){
+           
+            updateCameraPosition(focus: selectedDropOffItem?.placemark.coordinate, distance: 3429, heading: 92, pitch: 70)
             
         }
         .onChange(of: selectedStep){
@@ -118,9 +134,17 @@ struct NewMapView: View {
                 }
             }
         }
+        .onChange(of: selectedDropOffItem){
+            if let newLoc = selectedDropOffItem?.placemark.coordinate {
+                updateCameraPosition(focus: newLoc, distance: 992, heading: 70, pitch: 60)
+            }
+        }
     }
 }
 
 #Preview {
-    NewMapView(vm: MapViewModel(), selectedItem: .constant(nil), selectedStep: .constant(.pickup))
+    NewMapView(vm: MapViewModel(),
+               selectedPickupItem: .constant(nil),
+               selectedDropOffItem:.constant(nil),
+               selectedStep: .constant(.pickup))
 }

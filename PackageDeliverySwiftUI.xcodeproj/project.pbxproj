@@ -27,11 +27,9 @@
 		AF796D0D2A2FB219002F23A9 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF796D032A2FB219002F23A9 /* LocationModel.swift */; };
 		AF796D0E2A2FB219002F23A9 /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF796D042A2FB219002F23A9 /* AddressModel.swift */; };
 		AF796D0F2A2FB219002F23A9 /* EVehicleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF796D052A2FB219002F23A9 /* EVehicleType.swift */; };
-		AF982AB22A30647D002432FB /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF982AB12A30647D002432FB /* MapView.swift */; };
 		AF982AB42A3064E8002432FB /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF982AB32A3064E8002432FB /* LocationDetailView.swift */; };
 		AF9BAFA52A33050F006AEAA3 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9BAFA42A33050F006AEAA3 /* MapViewModel.swift */; };
 		AF9BAFA82A330621006AEAA3 /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9BAFA72A330621006AEAA3 /* CLLocationCoordinate2D.swift */; };
-		AF9BAFAA2A331923006AEAA3 /* MapScenarioDriverSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9BAFA92A331923006AEAA3 /* MapScenarioDriverSearch.swift */; };
 		AF9BAFAD2A33256E006AEAA3 /* VehiclesSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9BAFAC2A33256E006AEAA3 /* VehiclesSection.swift */; };
 		AF9BAFAF2A332636006AEAA3 /* VehicleContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9BAFAE2A332636006AEAA3 /* VehicleContentsView.swift */; };
 		AF9BAFB12A33268C006AEAA3 /* VehicleContentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9BAFB02A33268C006AEAA3 /* VehicleContentHeaderView.swift */; };
@@ -66,11 +64,9 @@
 		AF796D032A2FB219002F23A9 /* LocationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		AF796D042A2FB219002F23A9 /* AddressModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
 		AF796D052A2FB219002F23A9 /* EVehicleType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVehicleType.swift; sourceTree = "<group>"; };
-		AF982AB12A30647D002432FB /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		AF982AB32A3064E8002432FB /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
 		AF9BAFA42A33050F006AEAA3 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		AF9BAFA72A330621006AEAA3 /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
-		AF9BAFA92A331923006AEAA3 /* MapScenarioDriverSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScenarioDriverSearch.swift; sourceTree = "<group>"; };
 		AF9BAFAC2A33256E006AEAA3 /* VehiclesSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehiclesSection.swift; sourceTree = "<group>"; };
 		AF9BAFAE2A332636006AEAA3 /* VehicleContentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleContentsView.swift; sourceTree = "<group>"; };
 		AF9BAFB02A33268C006AEAA3 /* VehicleContentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleContentHeaderView.swift; sourceTree = "<group>"; };
@@ -215,9 +211,7 @@
 		AF982AB02A306466002432FB /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				AF982AB12A30647D002432FB /* MapView.swift */,
 				AF982AB32A3064E8002432FB /* LocationDetailView.swift */,
-				AF9BAFA92A331923006AEAA3 /* MapScenarioDriverSearch.swift */,
 				AF9BAFB82A333811006AEAA3 /* NewMapView.swift */,
 			);
 			path = Views;
@@ -377,7 +371,6 @@
 				AF796D0D2A2FB219002F23A9 /* LocationModel.swift in Sources */,
 				AF796CEA2A2FB0E6002F23A9 /* PackageDeliverySwiftUIApp.swift in Sources */,
 				AF9BAFAD2A33256E006AEAA3 /* VehiclesSection.swift in Sources */,
-				AF982AB22A30647D002432FB /* MapView.swift in Sources */,
 				AF9BAFB92A333811006AEAA3 /* NewMapView.swift in Sources */,
 				AF796D0F2A2FB219002F23A9 /* EVehicleType.swift in Sources */,
 				AF796D0B2A2FB219002F23A9 /* EWeatherType.swift in Sources */,
@@ -396,7 +389,6 @@
 				AF796D0C2A2FB219002F23A9 /* DeliveryStatusModel.swift in Sources */,
 				AFDBF0EF2A31F531003C726A /* PackageSelectionView.swift in Sources */,
 				AF9BAFBB2A336182006AEAA3 /* LinearGradient+StrokeStyle.swift in Sources */,
-				AF9BAFAA2A331923006AEAA3 /* MapScenarioDriverSearch.swift in Sources */,
 				AF50752A2A35CBEB00E589F0 /* EDeliveryChoiceSteps.swift in Sources */,
 				AF50752E2A36FFB100E589F0 /* InputView.swift in Sources */,
 				AF9BAFB72A332830006AEAA3 /* PackagesSection.swift in Sources */,

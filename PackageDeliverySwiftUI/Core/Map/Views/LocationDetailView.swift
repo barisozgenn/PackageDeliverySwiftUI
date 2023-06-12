@@ -9,7 +9,8 @@ import SwiftUI
 import MapKit
 
 struct LocationDetailView: View {
-    @State var selectedItem: MKMapItem
+    @Binding var selectedPickupItem: MKMapItem?
+    @Binding var selectedDropOffItem: MKMapItem?
     @Bindable var vm : MapViewModel
     @Binding var stepsDone: [EDeliveryChoiceSteps]
     
@@ -18,7 +19,7 @@ struct LocationDetailView: View {
     @State var phoneNumber: String = ""
     
     var travelTime: String? {
-        guard let route = vm.route else { return nil }
+        guard let route = vm.routePickupToDropOff else { return nil }
         let formatter = DateComponentsFormatter ()
         formatter.unitsStyle = .abbreviated
         formatter.allowedUnits = [.hour, .minute]
@@ -40,8 +41,14 @@ struct LocationDetailView: View {
                     .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/, radius: 2, x:0, y:2)
                    
                     HStack{
-                        Text(selectedItem.name ?? "not selected")
-                            .shadow(color: .black, radius: 2, x:0, y:2)
+                        if let selectedDropOffItem {
+                            Text(selectedDropOffItem.name ?? "not selected")
+                                .shadow(color: .black, radius: 2, x:0, y:2)
+                        }else if let selectedPickupItem {
+                            Text(selectedPickupItem.name ?? "not selected")
+                                .shadow(color: .black, radius: 2, x:0, y:2)
+                        }
+                        
 
                         if let travelTime {
                             Text(travelTime)
@@ -61,8 +68,14 @@ struct LocationDetailView: View {
                 .background(.black.opacity(0.29))
             }
             .onAppear{
-                vm.getLookAroundScene(selectedItem: selectedItem)
-                vm.getDirections(to: selectedItem)
+                if let selectedDropOffItem,
+                    let selectedPickupItem {
+                    vm.getLookAroundScene(selectedItem: selectedDropOffItem)
+                    vm.getDirections(from: selectedPickupItem, to: selectedDropOffItem, step: .dropoff)
+                }else if let selectedPickupItem {
+                    vm.getLookAroundScene(selectedItem: selectedPickupItem)
+                }
+               
             }
             .presentationDetents([.fraction(0.29)])
             .ignoresSafeArea()
@@ -98,5 +111,5 @@ extension LocationDetailView{
     }
 }
 #Preview {
-    LocationDetailView(selectedItem: MKMapItem(placemark: MKPlacemark(coordinate: .loc1)), vm: MapViewModel(), stepsDone: .constant([.pickup]))
+    LocationDetailView(selectedPickupItem: .constant(MKMapItem(placemark: MKPlacemark(coordinate: .loc1))),selectedDropOffItem:.constant(nil), vm: MapViewModel(), stepsDone: .constant([.pickup]))
 }
