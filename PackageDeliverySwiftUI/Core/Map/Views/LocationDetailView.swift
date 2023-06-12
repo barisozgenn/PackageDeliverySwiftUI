@@ -13,6 +13,10 @@ struct LocationDetailView: View {
     @Bindable var vm : MapViewModel
     @Binding var stepsDone: [EDeliveryChoiceSteps]
     
+    @State var aptNumber: String = ""
+    @State var nameSurname: String = ""
+    @State var phoneNumber: String = ""
+    
     var travelTime: String? {
         guard let route = vm.route else { return nil }
         let formatter = DateComponentsFormatter ()
@@ -28,7 +32,7 @@ struct LocationDetailView: View {
                     Text("Hey Baris!")
                         .shadow(color: .black, radius: 2, x:0, y:2)
                         .font(.title)
-                    Text("Confirm the pickup location for your package.")
+                    Text("Confirm the \(!stepsDone.contains(.pickup) ? "pickup" : "drop off") location for your package.")
                         .shadow(color: .black, radius: 2, x:0, y:2)
                         .font(.title3)
                     HStack{
@@ -38,6 +42,9 @@ struct LocationDetailView: View {
                         if let travelTime {
                             Text(travelTime)
                         }
+                    }
+                    if stepsDone.contains(.pickup) {
+                        dropOffView
                     }
                     confirmButton
                 }
@@ -53,7 +60,6 @@ struct LocationDetailView: View {
                 vm.getLookAroundScene(selectedItem: selectedItem)
                 vm.getDirections(to: selectedItem)
             }
-        //.background(.thinMaterial)
             .presentationDetents([.fraction(0.29)])
             .ignoresSafeArea()
     }
@@ -79,7 +85,14 @@ extension LocationDetailView{
             .padding(.top,7)
         }
     }
+    private var dropOffView: some View {
+        VStack(spacing: 0){
+            InputView(searchText: $aptNumber, icon: .constant("building.2"), placeHolder: .constant("Apt. Number"))
+            InputView(searchText: $nameSurname, icon: .constant("person"), placeHolder: .constant("Name Surname"))
+            InputView(searchText: $phoneNumber, icon: .constant("phone.and.waveform"), placeHolder: .constant("Phone Number"))
+        }
+    }
 }
 #Preview {
-    LocationDetailView(selectedItem: MKMapItem(placemark: MKPlacemark(coordinate: .loc1)), vm: MapViewModel(), stepsDone: .constant([]))
+    LocationDetailView(selectedItem: MKMapItem(placemark: MKPlacemark(coordinate: .loc1)), vm: MapViewModel(), stepsDone: .constant([.pickup]))
 }

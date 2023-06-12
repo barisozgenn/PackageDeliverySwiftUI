@@ -10,9 +10,10 @@ import MapKit
 
 
 struct HomeView: View {
+    @Bindable private var mapViewModel = MapViewModel()
     
     @State private var selectedItem: MKMapItem?
-    @Bindable private var mapViewModel = MapViewModel()
+    @State private var selectedDropOffItem: MKMapItem?
     
     @State var selectedStep : EDeliveryChoiceSteps = .pickup
     @State var selectedPackage : EPackageType? = nil
@@ -24,6 +25,7 @@ struct HomeView: View {
     @State private var isPackageSelected: Bool = false
     @State private var isVehicleSelected: Bool = false
     
+    @State private var searchText: String = ""
     
     var body: some View {
         ZStack{
@@ -48,7 +50,7 @@ struct HomeView: View {
                 
                    
                 }
-            DeliveryChoiceStepsView(selectedStep: $selectedStep, stepsDone: $stepsDone)
+            DeliveryChoiceStepsView(selectedStep: $selectedStep, stepsDone: $stepsDone, searchText: $searchText)
             
         }
         .onChange(of: stepsDone){

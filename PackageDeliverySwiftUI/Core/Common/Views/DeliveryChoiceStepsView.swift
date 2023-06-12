@@ -11,9 +11,12 @@ struct DeliveryChoiceStepsView: View {
     private let steps: [EDeliveryChoiceSteps] = EDeliveryChoiceSteps.allCases
     @Binding var selectedStep : EDeliveryChoiceSteps
     @Binding var stepsDone: [EDeliveryChoiceSteps]
-    
+    @Binding var searchText: String
     func getStepIsDone(step: EDeliveryChoiceSteps) -> Bool{
         return stepsDone.contains(step)
+    }
+    func canDropOffLocationSearch() -> Bool {
+        return selectedStep == .dropoff && stepsDone.contains(.pickup) && !stepsDone.contains(.dropoff)
     }
     var body: some View {
         VStack{
@@ -58,7 +61,11 @@ struct DeliveryChoiceStepsView: View {
                     }
                 }
             }
-            
+            .scaleEffect(canDropOffLocationSearch() ? 0.7 : 1)
+            .offset(x: canDropOffLocationSearch() ? -70 : 0)
+            if canDropOffLocationSearch() {
+                    SearchBarView(searchText: $searchText)
+            }
         }
         
         
@@ -68,5 +75,5 @@ struct DeliveryChoiceStepsView: View {
 }
 
 #Preview {
-    DeliveryChoiceStepsView(selectedStep: .constant(.pickup), stepsDone: .constant([]) )
+    DeliveryChoiceStepsView(selectedStep: .constant(.pickup), stepsDone: .constant([]), searchText: .constant("") )
 }
