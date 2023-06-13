@@ -51,7 +51,7 @@ struct HomeView: View {
                     vm: mapViewModel,
                     stepsDone: $stepsDone)
                 .presentationDetents([
-                    .height(429),
+                    .height(607),
                     .fraction(0.77)])
             }
             .sheet(isPresented: $isPackageSelected){
@@ -90,7 +90,7 @@ struct HomeView: View {
             }
         }
         .onChange(of: selectedDropOffItem){oldV, newV in
-            if !stepsDone.contains(.dropoff) {
+            if !stepsDone.contains(.dropoff) && stepsDone.contains(.package) {
                 isDropOffLocationSelected = true
             }
         }
@@ -113,7 +113,8 @@ struct HomeView: View {
                         case .dropoff:
                             if !stepsDone.contains(.dropoff) &&
                                 oldV != newV &&
-                                stepsDone.contains(.pickup){
+                                stepsDone.contains(.package) &&
+                            selectedDropOffItem != nil {
                                 isDropOffLocationSelected = true
                             }
                         case .request:

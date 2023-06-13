@@ -111,5 +111,5 @@ extension LocationDetailView{
     }
 }
 #Preview {
-    LocationDetailView(selectedPickupItem: .constant(MKMapItem(placemark: MKPlacemark(coordinate: .loc1))),selectedDropOffItem:.constant(nil), vm: MapViewModel(), stepsDone: .constant([.pickup]))
+    LocationDetailView(selectedPickupItem: .constant(MKMapItem(placemark: MKPlacemark(coordinate: .locU))),selectedDropOffItem:.constant(nil), vm: MapViewModel(), stepsDone: .constant([.pickup]))
 }

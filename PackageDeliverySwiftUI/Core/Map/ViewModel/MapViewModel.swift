@@ -20,7 +20,7 @@ import SwiftUI
 
     func getDirectionsPolyLine(selectedItem : MKMapItem) {
         let request = MKDirections.Request()
-        request.source = MKMapItem(placemark: MKPlacemark(coordinate: .loc3)) // Replace with your pickup location
+        request.source = MKMapItem(placemark: MKPlacemark(coordinate: .locU)) // Replace with your pickup location
         request.destination = selectedItem // Replace with destination coordinates
         request.transportType = .automobile
         

@@ -91,7 +91,7 @@ struct NewMapView: View {
             }
             
             // show drop off locations
-            if selectedStep == .request {
+            if selectedStep == .dropoff || selectedStep == .request {
                 ForEach(vm.searchResults, id: \.self){ result in
                     
                     Annotation(result.name ?? "drop off", coordinate: result.placemark.coordinate) {
@@ -176,8 +176,9 @@ struct NewMapView: View {
             }
         }
         .onChange(of: searchText) { oldT, newT in
-            if oldT != newT &&
-                selectedStep == .dropoff {
+            if selectedPickupItem != nil &&
+                selectedStep == .dropoff &&
+                newT.count > 3 {
                 searchTextPublisher.send(newT)
             }
         }
@@ -185,7 +186,10 @@ struct NewMapView: View {
             searchTextPublisher
                 .debounce(for: .milliseconds(729), scheduler: DispatchQueue.main)
         ) { debouncedSearchText in
-            vm.searchLocations(for: debouncedSearchText, from: .locU)
+            if let selectedPickupItem {
+                vm.searchLocations(for: debouncedSearchText, from: selectedPickupItem.placemark.coordinate)
+            }
+           
         }
     }
 }
