@@ -21,7 +21,7 @@ import SwiftUI
     func getDirectionsPolyLine(selectedItem : MKMapItem) {
         let request = MKDirections.Request()
         request.source = MKMapItem(placemark: MKPlacemark(coordinate: .locU)) // Replace with your pickup location
-        request.destination = selectedItem // Replace with destination coordinates
+        request.destination = selectedItem // destination coordinates you select on the map
         request.transportType = .automobile
         
         let directions = MKDirections(request: request)
@@ -39,7 +39,7 @@ import SwiftUI
         }else {
             routeDriverToPickup = nil
         }
-        //guard let pickupLocation = searchResultsForDrivers.first else {return} // for demo
+        
         let request = MKDirections.Request()
         request.source = pickup // Replace with your pickup location
         request.destination = dropOff // Replace with destination coordinates
@@ -89,17 +89,16 @@ import SwiftUI
         Task.detached {
             let search = MKLocalSearch(request: request)
             let response = try? await search.start()
-            DispatchQueue.main.async { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.92) { [weak self] in
                 self?.searchResultsForDrivers = response?.mapItems ?? []
             }
         }
     }
     //searchLocations is a demo functions that you can search locations to show on the map
     func searchLocations(for query: String, from location: CLLocationCoordinate2D) {
-       
         let request = MKLocalSearch.Request ()
         request.naturalLanguageQuery = query
-        request.resultTypes = .address // here we are looking for the address we typed
+        request.resultTypes = .pointOfInterest // here you can look for .address rather than .pointOfInterest
         request.region = MKCoordinateRegion(
             center: location,
             span: MKCoordinateSpan(latitudeDelta: 0.0092, longitudeDelta: 0.0092))
@@ -114,10 +113,10 @@ import SwiftUI
     //for demo replace it later
     func searchMyLocation() {
         let request = MKLocalSearch.Request ()
-        request.naturalLanguageQuery = "coffee fellows"
-        request.resultTypes = .pointOfInterest // here we are looking for the address we typed
+        request.naturalLanguageQuery = "coffee fellows" // it is only a demo search you can replace it.
+        request.resultTypes = .pointOfInterest // here we are looking for the address we typed.
         request.region = MKCoordinateRegion(
-            center: .locU,
+            center: .locU, //replace with your real location. On beta simulator device location does not work unfortunately!
             span: MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002))
         Task.detached {
             let search = MKLocalSearch(request: request)

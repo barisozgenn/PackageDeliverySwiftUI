@@ -39,7 +39,7 @@ struct NewMapView: View {
             
             // show drivers locations
             if selectedStep == .request &&
-                vm.routePickupToDropOff == nil {
+                selectedPickupItem != nil  {
                 ForEach(vm.searchResultsForDrivers, id: \.self){ result in
                     let driver = EVehicleType.allCases.shuffled().first!
                     Annotation(driver.title, coordinate: result.placemark.coordinate) {
@@ -64,7 +64,7 @@ struct NewMapView: View {
             
             // find my location. Here is demo
             ForEach(vm.myLocation, id: \.self){ result in
-                Annotation("You are here", coordinate: result.placemark.coordinate) {
+                Annotation(selectedPickupItem == nil ? "You are here" : "Pickup Point", coordinate: result.placemark.coordinate) {
                     Image("profil_photo_baris")
                         .resizable()
                         .scaledToFit()
@@ -92,9 +92,39 @@ struct NewMapView: View {
             
             // show drop off locations
             if selectedStep == .dropoff || selectedStep == .request {
-                ForEach(vm.searchResults, id: \.self){ result in
-                    
-                    Annotation(result.name ?? "drop off", coordinate: result.placemark.coordinate) {
+                // show search result on the map for drop off loc
+                if selectedDropOffItem == nil {
+                    ForEach(vm.searchResults, id: \.self){ result in
+                        
+                        Annotation(result.name ?? "drop off", coordinate: result.placemark.coordinate) {
+                           Text("Drop\nOff")
+                                .foregroundStyle(.white)
+                                .font(.subheadline)
+                                .bold()
+                                .multilineTextAlignment(.center)
+                                .padding(7)
+                                .background(.black)
+                                .clipShape(Circle())
+                                .padding(4)
+                                .background(colorMyPin)
+                                .clipShape(Circle())
+                                .offset(y: -14)
+                                .overlay(alignment: .bottom) {
+                                    Image(systemName: "triangle.fill")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .foregroundStyle(colorMyPin)
+                                        .frame(width: 24)
+                                        .scaleEffect(y: -1)
+                                    
+                                }
+                        }
+                        .annotationTitles(.automatic)
+                    }
+                }
+                // if drop off item is selected show only it
+                else if let selectedDropOffItem {
+                    Annotation(selectedDropOffItem.name ?? "drop off", coordinate: selectedDropOffItem.placemark.coordinate) {
                        Text("Drop\nOff")
                             .foregroundStyle(.white)
                             .font(.subheadline)
@@ -119,6 +149,7 @@ struct NewMapView: View {
                     }
                     .annotationTitles(.automatic)
                 }
+                
             }
         }
         .mapControls{
@@ -187,6 +218,7 @@ struct NewMapView: View {
                 .debounce(for: .milliseconds(729), scheduler: DispatchQueue.main)
         ) { debouncedSearchText in
             if let selectedPickupItem {
+                selectedDropOffItem = nil
                 vm.searchLocations(for: debouncedSearchText, from: selectedPickupItem.placemark.coordinate)
             }
            

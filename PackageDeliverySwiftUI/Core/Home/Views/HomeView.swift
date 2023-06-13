@@ -61,7 +61,7 @@ struct HomeView: View {
                         .fraction(0.54)])
             }
             .sheet(isPresented: $isVehicleSelected){
-                VehicleSelectionView(selectedPackage: .l, km: 14.29, selectedVehicle: $selectedVehicle)
+                VehicleSelectionView(selectedPackage: selectedPackage ?? .s, km: 14.29, selectedVehicle: $selectedVehicle)
                     .presentationDetents([
                         .height(529),
                         .fraction(0.62)])
