@@ -7,6 +7,7 @@
 import MapKit
 import Observation
 import SwiftUI
+
 @Observable class MapViewModel/*:ObservedObject*/ {
     /*@Published*/ var routePickupToDropOff: MKRoute? = MKRoute()
     /*@Published*/ var routeDriverToPickup: MKRoute? = MKRoute()
@@ -95,12 +96,13 @@ import SwiftUI
     }
     //searchLocations is a demo functions that you can search locations to show on the map
     func searchLocations(for query: String, from location: CLLocationCoordinate2D) {
+       
         let request = MKLocalSearch.Request ()
         request.naturalLanguageQuery = query
         request.resultTypes = .address // here we are looking for the address we typed
         request.region = MKCoordinateRegion(
             center: location,
-            span: MKCoordinateSpan(latitudeDelta: 0.007, longitudeDelta: 0.007))
+            span: MKCoordinateSpan(latitudeDelta: 0.0092, longitudeDelta: 0.0092))
         Task.detached {
             let search = MKLocalSearch(request: request)
             let response = try? await search.start()

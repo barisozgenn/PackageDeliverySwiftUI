@@ -21,6 +21,7 @@ struct HomeView: View {
     @State var stepsDone: [EDeliveryChoiceSteps] = []
     
     @State private var isPickupLocationSelected: Bool = false
+    @State private var isDropOffLocationSelected: Bool = false
     @State private var isPackageSelected: Bool = false
     @State private var isVehicleSelected: Bool = false
     
@@ -31,16 +32,27 @@ struct HomeView: View {
             NewMapView(vm: mapViewModel,
                        selectedPickupItem: $selectedPickupItem,
                        selectedDropOffItem: $selectedDropOffItem,
-                       selectedStep: $selectedStep)
+                       selectedStep: $selectedStep,
+                       searchText: $searchText)
             .sheet(isPresented: $isPickupLocationSelected){
+                LocationDetailView(
+                    selectedPickupItem: $selectedPickupItem,
+                    selectedDropOffItem: .constant(nil),
+                    vm: mapViewModel,
+                    stepsDone: $stepsDone)
+                .presentationDetents([
+                    .height(329),
+                    .fraction(0.62)])
+            }
+            .sheet(isPresented: $isDropOffLocationSelected){
                 LocationDetailView(
                     selectedPickupItem: $selectedPickupItem,
                     selectedDropOffItem: $selectedDropOffItem,
                     vm: mapViewModel,
                     stepsDone: $stepsDone)
                 .presentationDetents([
-                    .height(329),
-                    .fraction(0.62)])
+                    .height(429),
+                    .fraction(0.77)])
             }
             .sheet(isPresented: $isPackageSelected){
                 PackageSelectionView(selectedPackage: $selectedPackage)
@@ -65,7 +77,7 @@ struct HomeView: View {
                     isPickupLocationSelected = false
                     
                 case .dropoff:
-                    isPickupLocationSelected = false
+                    isDropOffLocationSelected = false
                     
                 default:
                     return
@@ -78,8 +90,8 @@ struct HomeView: View {
             }
         }
         .onChange(of: selectedDropOffItem){oldV, newV in
-            if !stepsDone.contains(.dropoff) && oldV != newV {
-                isPickupLocationSelected = true
+            if !stepsDone.contains(.dropoff) {
+                isDropOffLocationSelected = true
             }
         }
         .onChange(of: selectedStep){oldV, newV in
@@ -96,14 +108,19 @@ struct HomeView: View {
                             if stepsDone.contains(.pickup) && !stepsDone.contains(.package) {
                                 if selectedPackage == nil {
                                     isPackageSelected = true
-                                }else {
-                                    isVehicleSelected = true
-                                }                    }
+                                }
+                            }
                         case .dropoff:
-                           
-                            return
+                            if !stepsDone.contains(.dropoff) &&
+                                oldV != newV &&
+                                stepsDone.contains(.pickup){
+                                isDropOffLocationSelected = true
+                            }
                         case .request:
-                            return
+                            if stepsDone.contains(.dropoff) &&
+                                !stepsDone.contains(.request){
+                                isVehicleSelected = true
+                            }
                         }
                     }
                 }
@@ -116,6 +133,7 @@ struct HomeView: View {
                 }
             }
         }
+         
     }
 }
 
