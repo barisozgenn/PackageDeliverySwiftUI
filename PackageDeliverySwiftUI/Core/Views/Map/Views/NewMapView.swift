@@ -16,6 +16,7 @@ struct NewMapView: View {
     @State var selectedItem: MKMapItem? = nil
     @Binding var selectedPickupItem: MKMapItem?
     @Binding var selectedDropOffItem: MKMapItem?
+    @Binding var selectedDriverItem: MKMapItem?
     
     @Binding var selectedStep : EDeliveryChoiceSteps
     
@@ -56,33 +57,22 @@ struct NewMapView: View {
                     .annotationTitles(.automatic)
                 }
             }
-            // draw route from pickup to drop off
-            if let route = vm.routePickupToDropOff {
+            // draw route from driver to pick up
+            if let route = vm.routeDriverToPickup {
                 MapPolyline(route)
                     .stroke(LinearGradient.gradientWalk, style: .strokeWalk)
+            }
+            // draw route from pick up to drop off
+            if let route = vm.routePickupToDropOff {
+                MapPolyline(route)
+                    .stroke(lineWidth: 5)
+                    //.strokeStyle(style: .orange)
             }
             
             // find my location. Here is demo
             ForEach(vm.myLocation, id: \.self){ result in
                 Annotation(selectedPickupItem == nil ? "You are here" : "Pickup Point", coordinate: result.placemark.coordinate) {
-                    Image("profil_photo_baris")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 48)
-                        .clipShape(Circle())
-                        .padding(4)
-                        .background(colorMyPin)
-                        .clipShape(Circle())
-                        .offset(y: -16)
-                        .overlay(alignment: .bottom) {
-                            Image(systemName: "triangle.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .foregroundStyle(colorMyPin)
-                                .frame(width: 24)
-                                .scaleEffect(y: -1)
-                            
-                        }
+                    pickupView
                         .onAppear{
                             updateCameraPosition(focus: .locU, distance: 992, heading: 70, pitch: 60)
                         }
@@ -97,27 +87,7 @@ struct NewMapView: View {
                     ForEach(vm.searchResults, id: \.self){ result in
                         
                         Annotation(result.name ?? "drop off", coordinate: result.placemark.coordinate) {
-                           Text("Drop\nOff")
-                                .foregroundStyle(.white)
-                                .font(.subheadline)
-                                .bold()
-                                .multilineTextAlignment(.center)
-                                .padding(7)
-                                .background(.black)
-                                .clipShape(Circle())
-                                .padding(4)
-                                .background(colorMyPin)
-                                .clipShape(Circle())
-                                .offset(y: -14)
-                                .overlay(alignment: .bottom) {
-                                    Image(systemName: "triangle.fill")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .foregroundStyle(colorMyPin)
-                                        .frame(width: 24)
-                                        .scaleEffect(y: -1)
-                                    
-                                }
+                           dropOffView
                         }
                         .annotationTitles(.automatic)
                     }
@@ -125,27 +95,7 @@ struct NewMapView: View {
                 // if drop off item is selected show only it
                 else if let selectedDropOffItem {
                     Annotation(selectedDropOffItem.name ?? "drop off", coordinate: selectedDropOffItem.placemark.coordinate) {
-                       Text("Drop\nOff")
-                            .foregroundStyle(.white)
-                            .font(.subheadline)
-                            .bold()
-                            .multilineTextAlignment(.center)
-                            .padding(7)
-                            .background(.black)
-                            .clipShape(Circle())
-                            .padding(4)
-                            .background(colorMyPin)
-                            .clipShape(Circle())
-                            .offset(y: -14)
-                            .overlay(alignment: .bottom) {
-                                Image(systemName: "triangle.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .foregroundStyle(colorMyPin)
-                                    .frame(width: 24)
-                                    .scaleEffect(y: -1)
-                                
-                            }
+                        dropOffView
                     }
                     .annotationTitles(.automatic)
                 }
@@ -206,6 +156,16 @@ struct NewMapView: View {
                 updateCameraPosition(focus: selectedDropOffItem.placemark.coordinate, distance: 3429, heading: 92, pitch: 60)
             }
         }
+       .onChange(of: selectedDriverItem){
+            if selectedStep == .request,
+               let selectedPickupItem,
+               let selectedDriverItem {
+                vm.getDirections(
+                    from: selectedDriverItem,
+                    to: selectedPickupItem,
+                    step: selectedStep)
+            }
+        }
         .onChange(of: searchText) { oldT, newT in
             if selectedPickupItem != nil &&
                 selectedStep == .dropoff &&
@@ -221,8 +181,51 @@ struct NewMapView: View {
                 selectedDropOffItem = nil
                 vm.searchLocations(for: debouncedSearchText, from: selectedPickupItem.placemark.coordinate)
             }
-           
         }
+    }
+    
+    private var pickupView: some View {
+        Image("profil_photo_baris")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 48)
+            .clipShape(Circle())
+            .padding(4)
+            .background(colorMyPin)
+            .clipShape(Circle())
+            .offset(y: -16)
+            .overlay(alignment: .bottom) {
+                Image(systemName: "triangle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundStyle(colorMyPin)
+                    .frame(width: 24)
+                    .scaleEffect(y: -1)
+                
+            }
+    }
+    private var dropOffView: some View {
+        Text("Drop\nOff")
+             .foregroundStyle(.white)
+             .font(.subheadline)
+             .bold()
+             .multilineTextAlignment(.center)
+             .padding(7)
+             .background(.black)
+             .clipShape(Circle())
+             .padding(4)
+             .background(colorMyPin)
+             .clipShape(Circle())
+             .offset(y: -14)
+             .overlay(alignment: .bottom) {
+                 Image(systemName: "triangle.fill")
+                     .resizable()
+                     .scaledToFit()
+                     .foregroundStyle(colorMyPin)
+                     .frame(width: 24)
+                     .scaleEffect(y: -1)
+                 
+             }
     }
 }
 
@@ -230,6 +233,6 @@ struct NewMapView: View {
     NewMapView(vm: MapViewModel(),
                selectedPickupItem: .constant(nil),
                selectedDropOffItem:.constant(nil),
-               selectedStep: .constant(.pickup),
+               selectedDriverItem: .constant(nil), selectedStep: .constant(.pickup),
                searchText: .constant(""))
 }

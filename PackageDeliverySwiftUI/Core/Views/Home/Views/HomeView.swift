@@ -14,7 +14,8 @@ struct HomeView: View {
     
     @State private var selectedPickupItem: MKMapItem? = nil
     @State private var selectedDropOffItem: MKMapItem? = nil
-    
+    @State private var selectedDriverItem: MKMapItem? = nil
+
     @State var selectedStep : EDeliveryChoiceSteps = .pickup
     @State var selectedPackage : EPackageType? = nil
     @State var selectedVehicle : EVehicleType? = nil
@@ -32,6 +33,7 @@ struct HomeView: View {
             NewMapView(vm: mapViewModel,
                        selectedPickupItem: $selectedPickupItem,
                        selectedDropOffItem: $selectedDropOffItem,
+                       selectedDriverItem: $selectedDriverItem,
                        selectedStep: $selectedStep,
                        searchText: $searchText)
             .sheet(isPresented: $isPickupLocationSelected){

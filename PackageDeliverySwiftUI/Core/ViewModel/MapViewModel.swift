@@ -34,11 +34,9 @@ import SwiftUI
         }
     }
     func getDirections(from pickup: MKMapItem, to dropOff : MKMapItem, step selectedStep : EDeliveryChoiceSteps) {
-        if selectedStep == .dropoff {
-            routePickupToDropOff = nil
-        }else {
-            routeDriverToPickup = nil
-        }
+        if selectedStep == .dropoff {routePickupToDropOff = nil}
+        else if selectedStep == .request {routeDriverToPickup = nil}
+        else {return}
         
         let request = MKDirections.Request()
         request.source = pickup // Replace with your pickup location
