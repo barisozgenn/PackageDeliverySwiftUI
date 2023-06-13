@@ -8,7 +8,6 @@
 import SwiftUI
 import MapKit
 
-
 struct HomeView: View {
     @Bindable private var mapViewModel = MapViewModel()
     

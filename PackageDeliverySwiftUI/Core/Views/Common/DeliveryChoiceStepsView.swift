@@ -65,6 +65,7 @@ struct DeliveryChoiceStepsView: View {
                                             .opacity(selectedStep == step ? 0 : 1)
                                     }
                                 }
+                                .focusable(interactions: .activate)
                             }
                         }
                         .offset(y: deliveryChoiceStepsViewY)
@@ -125,6 +126,7 @@ struct DeliveryChoiceStepsView: View {
                                                 .padding(.vertical, 4)
                                         }
                                     }
+                                    .focusable(interactions: .activate)
                                 }
                             }
                             .offset(x: deliveryChoiceStepsViewX)

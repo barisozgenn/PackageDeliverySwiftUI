@@ -144,18 +144,28 @@ struct DeliveryStepsView: View {
         }
         .overlay(alignment: .top) {
             if selectedDriverItem == nil || deliveryPercent == 0 {
-                ProgressView() .progressViewStyle(CircularProgressViewStyle())
-                    .tint(.orange)
-                    .offset(y: -29)
+                Image(systemName:  "antenna.radiowaves.left.and.right")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 32)
+                            .symbolEffect(
+                                .variableColor.iterative.reversing
+                            )
+                            .foregroundStyle(selectedVehicle?.iconColor ?? .black)
+                            .offset(y: -29)
             } else if deliveryPercent > 36 {
                 Image(systemName: "shippingbox.circle.fill")
                     .resizable()
                     .scaledToFit()
-                    .background(.black)
+                    .symbolEffect(
+                        .pulse
+                    )
+                    .background(.white)
                     .foregroundColor(.orange)
                     .clipShape(Circle())
                     .frame(width: 24)
                     .offset(y: -29)
+                    .shadow(color: .clear, radius: 0)
             }
             
         }
@@ -211,5 +221,5 @@ struct DeliveryStepsView: View {
                       selectedDropOffItem: .constant(MKMapItem(placemark: MKPlacemark(coordinate: .locDropOffDemo))),
                       selectedDriverItem:.constant(MKMapItem(placemark: MKPlacemark(coordinate: .locDriverDemo))),
                       vm: MapViewModel(), isDeliveryStepsStarted: .constant(true),
-                      deliveryPercent: 14)
+                      deliveryPercent: 0)
 }
