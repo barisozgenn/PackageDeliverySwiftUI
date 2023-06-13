@@ -141,6 +141,10 @@ struct DeliveryStepsView: View {
             Image(systemName: selectedVehicle?.image ?? "car")
                 .padding (7)
                 .foregroundStyle(.white)
+                .symbolEffect(
+                    .pulse,
+                    isActive: selectedDriverItem == nil ? true : false
+                )
         }
         .overlay(alignment: .top) {
             if selectedDriverItem == nil || deliveryPercent == 0 {
