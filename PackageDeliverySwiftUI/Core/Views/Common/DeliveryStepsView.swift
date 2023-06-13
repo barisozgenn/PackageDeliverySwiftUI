@@ -9,15 +9,18 @@ import SwiftUI
 import MapKit
 
 struct DeliveryStepsView: View {
-    @Binding var selectedVehicle : EVehicleType
+    @Binding var selectedVehicle : EVehicleType?
     @Binding var selectedPickupItem: MKMapItem?
     @Binding var selectedDropOffItem: MKMapItem?
     @Binding var selectedDriverItem: MKMapItem?
     @Bindable var vm : MapViewModel
-    
+    @Binding var isDeliveryStepsStarted: Bool
+
     @State var deliveryPercent: Double = 0
     @State private var colorMyPin: LinearGradient = LinearGradient(colors: [.red, .orange], startPoint: .top, endPoint: .center)
     
+    @State private var deliveryStepsViewY: Double = 192
+
     var travelTimePickupToDropOff: String? {
         guard let route = vm.routePickupToDropOff else { return "0m" }
         let formatter = DateComponentsFormatter ()
@@ -35,98 +38,107 @@ struct DeliveryStepsView: View {
     }
     
     var body: some View {
-        ZStack {
-            HStack{
-                RoundedRectangle(cornerSize: CGSize(width: 3.5, height: 3.5))
-                    .fill(LinearGradient(colors: [.red, .orange], startPoint: .leading, endPoint: .trailing))
-                    .frame(width: 92,height: 7)
-                    .padding(.leading, 29)
-                RoundedRectangle(cornerSize: CGSize(width: 3.5, height: 3.5))
-                    .fill(.orange)
-                    .frame(height: 7)
-                    .padding(.leading, 26)
-                    .padding(.trailing, 54)
-            }
-            HStack{
-                Circle()
-                    .fill(.red)
-                    .frame(width: 24)
-                
-                Spacer().frame(width: 92)
-                Circle()
-                    .fill(.orange)
-                    .frame(width: 24)
-                    .padding(10)
-                    .overlay(alignment: .top) {
-                        pickupView
-                            .offset(y: -40)
+        VStack{
+            if isDeliveryStepsStarted {
+                Spacer()
+                ZStack {
+                    HStack{
+                        RoundedRectangle(cornerSize: CGSize(width: 3.5, height: 3.5))
+                            .fill(LinearGradient(colors: [.red, .orange], startPoint: .leading, endPoint: .trailing))
+                            .frame(width: 92,height: 7)
+                            .padding(.leading, 29)
+                        RoundedRectangle(cornerSize: CGSize(width: 3.5, height: 3.5))
+                            .fill(.orange)
+                            .frame(height: 7)
+                            .padding(.leading, 26)
+                            .padding(.trailing, 54)
                     }
-                    .overlay(alignment: .bottom) {
-                        if !(vm.routeDriverToPickup?.expectedTravelTime.isEqual(to: 0) ?? false) {
-                            Text(deliveryPercent > 36 ? "" : travelTimeDriverToPickup ?? "0")
-                                .font(.headline)
-                                .foregroundStyle(.orange)
-                                .offset(y: 14)
-                        }
+                    HStack{
+                        Circle()
+                            .fill(.red)
+                            .frame(width: 24)
                         
+                        Spacer().frame(width: 92)
+                        Circle()
+                            .fill(.orange)
+                            .frame(width: 24)
+                            .padding(10)
+                            .overlay(alignment: .top) {
+                                pickupView
+                                    .offset(y: -40)
+                            }
+                            .overlay(alignment: .bottom) {
+                                if !(vm.routeDriverToPickup?.expectedTravelTime.isEqual(to: 0) ?? false) {
+                                    Text(deliveryPercent > 36 ? "" : travelTimeDriverToPickup ?? "0")
+                                        .font(.headline)
+                                        .foregroundStyle(.orange)
+                                        .offset(y: 14)
+                                }
+                                
+                            }
+                        Spacer()
+                        Circle()
+                            .fill(.orange)
+                            .frame(width: 24)
+                            .padding(24)
+                            .overlay(alignment: .top) {
+                                dropOffView
+                                    .offset(y: -40)
+                            }
+                            .overlay(alignment: .bottom) {
+                                if !(vm.routePickupToDropOff?.expectedTravelTime.isEqual(to: 0) ?? false) {
+                                    Text(deliveryPercent == 100 ? "" :travelTimePickupToDropOff ?? "0")
+                                        .font(.headline)
+                                        .foregroundStyle(.orange)
+                                }
+                            }
                     }
-                Spacer()
-                Circle()
-                    .fill(.orange)
-                    .frame(width: 24)
-                    .padding(24)
-                    .overlay(alignment: .top) {
-                        dropOffView
-                            .offset(y: -40)
+                    HStack{
+                        Spacer()
+                            .frame(width: deliveryPercent * 3.5 )
+                        driverView
+                            .frame(width: 24)
+                        Spacer(minLength: 20)
                     }
-                    .overlay(alignment: .bottom) {
-                        if !(vm.routePickupToDropOff?.expectedTravelTime.isEqual(to: 0) ?? false) {
-                            Text(deliveryPercent == 100 ? "" :travelTimePickupToDropOff ?? "0")
-                                .font(.headline)
-                                .foregroundStyle(.orange)
-                        }
+                }
+                .shadow(color: .black.opacity(0.7), radius: 1, x: 0, y: 1)
+                .padding()
+                .onChange(of: selectedDriverItem){oldD, newD in
+                    if let selectedPickupItem,
+                       let newD {
+                        vm.getDirections(from: newD, to: selectedPickupItem, step: .request)
                     }
-            }
-            HStack{
-                Spacer()
-                    .frame(width: deliveryPercent * 3.5 )
-                driverView
-                    .frame(width: 24)
-                Spacer(minLength: 20)
-            }
-        }
-        .shadow(color: .black.opacity(0.7), radius: 1, x: 0, y: 1)
-        .padding()
-        .onChange(of: selectedDriverItem){oldD, newD in
-            if let selectedPickupItem,
-               let newD {
-                vm.getDirections(from: newD, to: selectedPickupItem, step: .request)
-            }
-        }
-        .onChange(of: selectedDropOffItem){oldD, newD in
-            if let selectedPickupItem,
-               let newD {
-                vm.getDirections(from: selectedPickupItem, to: newD, step: .dropoff)
-            }
-        }
-        //for demo, it can be removed
-        .onAppear{
-            if let selectedPickupItem,
-               let newD = selectedDropOffItem {
-                vm.getDirections(from: selectedPickupItem, to: newD, step: .dropoff)
-            }
-            if let selectedPickupItem,
-               let newD = selectedDriverItem{
-                vm.getDirections(from: newD, to: selectedPickupItem, step: .request)
+                }
+                .onChange(of: selectedDropOffItem){oldD, newD in
+                    if let selectedPickupItem,
+                       let newD {
+                        vm.getDirections(from: selectedPickupItem, to: newD, step: .dropoff)
+                    }
+                }
+                //for demo, it can be removed
+                .onAppear{
+                    if let selectedPickupItem,
+                       let newD = selectedDropOffItem {
+                        vm.getDirections(from: selectedPickupItem, to: newD, step: .dropoff)
+                    }
+                    if let selectedPickupItem,
+                       let newD = selectedDriverItem{
+                        vm.getDirections(from: newD, to: selectedPickupItem, step: .request)
+                    }
+                    withAnimation(.smooth.delay(1.29)){
+                        deliveryStepsViewY = 0
+                    }
+                }
+                .offset(y: deliveryStepsViewY)
             }
         }
     }
     private var driverView: some View {
         ZStack {
             Circle()
-                .fill(selectedVehicle.iconColor)
+                .fill(selectedVehicle?.iconColor ?? .black)
                 .shadow(color: .black, radius: 2)
-            Image(systemName: selectedVehicle.image)
+            Image(systemName: selectedVehicle?.image ?? "car")
                 .padding (7)
                 .foregroundStyle(.white)
         }
@@ -198,6 +210,6 @@ struct DeliveryStepsView: View {
                       selectedPickupItem: .constant(MKMapItem(placemark: MKPlacemark(coordinate: .locU))),
                       selectedDropOffItem: .constant(MKMapItem(placemark: MKPlacemark(coordinate: .locDropOffDemo))),
                       selectedDriverItem:.constant(MKMapItem(placemark: MKPlacemark(coordinate: .locDriverDemo))),
-                      vm: MapViewModel(),
+                      vm: MapViewModel(), isDeliveryStepsStarted: .constant(true),
                       deliveryPercent: 14)
 }

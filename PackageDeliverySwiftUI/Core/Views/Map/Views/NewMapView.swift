@@ -25,6 +25,8 @@ struct NewMapView: View {
     @Binding var searchText: String
     private let searchTextPublisher = PassthroughSubject<String, Never>()
     
+    @Binding var selectedVehicle : EVehicleType?
+    
     func updateCameraPosition(focus centerCoordinate: CLLocationCoordinate2D,
                               distance:Double,
                               heading: Double,
@@ -40,7 +42,7 @@ struct NewMapView: View {
             
             // show drivers locations
             if selectedStep == .request &&
-                selectedPickupItem != nil  {
+                selectedPickupItem != nil  && selectedDriverItem == nil {
                 ForEach(vm.searchResultsForDrivers, id: \.self){ result in
                     let driver = EVehicleType.allCases.shuffled().first!
                     Annotation(driver.title, coordinate: result.placemark.coordinate) {
@@ -57,6 +59,21 @@ struct NewMapView: View {
                     .annotationTitles(.automatic)
                 }
             }
+            else if let selectedDriverItem,
+                    let selectedVehicle {
+                Annotation(selectedVehicle.title, coordinate: selectedDriverItem.placemark.coordinate) {
+                    ZStack {
+                        Circle()
+                            .fill(selectedVehicle.iconColor)
+                            .shadow(color: .black, radius: 2)
+                        Image(systemName: selectedVehicle.image)
+                            .padding (7)
+                            .foregroundStyle(.white)
+                    }
+                    
+                }
+                .annotationTitles(.automatic)
+            }
             // draw route from driver to pick up
             if let route = vm.routeDriverToPickup {
                 MapPolyline(route)
@@ -65,8 +82,7 @@ struct NewMapView: View {
             // draw route from pick up to drop off
             if let route = vm.routePickupToDropOff {
                 MapPolyline(route)
-                    .stroke(lineWidth: 5)
-                    //.strokeStyle(style: .orange)
+                    .stroke(.orange, lineWidth: 5)
             }
             
             // find my location. Here is demo
@@ -87,7 +103,7 @@ struct NewMapView: View {
                     ForEach(vm.searchResults, id: \.self){ result in
                         
                         Annotation(result.name ?? "drop off", coordinate: result.placemark.coordinate) {
-                           dropOffView
+                            dropOffView
                         }
                         .annotationTitles(.automatic)
                     }
@@ -102,86 +118,95 @@ struct NewMapView: View {
                 
             }
         }
-        .mapControls{
-            //MapUserLocationButton()
-            MapCompass()
-            MapScaleView()
-            MapPitchButton()
-        }
-        .mapStyle(.standard(elevation: .automatic))
-        .onAppear{
-            vm.searchMyLocation()
-            vm.searchDriverLocations()
-        }
-        .onChange(of: selectedItem){
-            guard let selectedItem else {return}
-            if selectedStep == .pickup {
-                selectedPickupItem = selectedItem
+            .mapControls{
+                //MapUserLocationButton()
+                MapCompass()
+                MapScaleView()
+                MapPitchButton()
             }
-            if selectedStep == .dropoff {
-                selectedDropOffItem = selectedItem
+            .mapStyle(.standard(elevation: .automatic))
+            .onAppear{
+                vm.searchMyLocation()
+                vm.searchDriverLocations()
             }
-            if selectedStep == .dropoff,
-               let selectedPickupItem,
-               let selectedDropOffItem {
-                vm.getDirections(
-                    from: selectedPickupItem,
-                    to: selectedDropOffItem,
-                    step: selectedStep)
-            }
-            
-        }
-        .onChange(of: vm.searchResultsForDrivers){
-            updateCameraPosition(focus: .locU, distance: 1429, heading: 92, pitch: 70)
-        }
-        .onChange(of: vm.searchResults){
-            updateCameraPosition(focus: .locU, distance: 4129, heading: 92, pitch: 70)
-        }
-        .onChange(of: selectedStep){
-            withAnimation(.spring()){
-                switch selectedStep {
-                case .pickup:
-                    updateCameraPosition(focus: .locU, distance: 992, heading: 70, pitch: 60)
-                case .package:
-                    updateCameraPosition(focus: .locU, distance: 2729, heading: 92, pitch: 70)
-                case .dropoff:
-                    updateCameraPosition(focus: .locU, distance: 992, heading: 70, pitch: 60)
-                case .request:
-                    updateCameraPosition(focus: .locU, distance: 3729, heading: 92, pitch: 70)
+            .onChange(of: selectedItem){
+                guard let selectedItem else {return}
+                if selectedStep == .pickup {
+                    selectedPickupItem = selectedItem
+                }
+                if selectedStep == .dropoff {
+                    selectedDropOffItem = selectedItem
+                }
+                if selectedStep == .dropoff,
+                   let selectedPickupItem,
+                   let selectedDropOffItem {
+                    vm.getDirections(
+                        from: selectedPickupItem,
+                        to: selectedDropOffItem,
+                        step: selectedStep)
                 }
             }
-        }
-        .onChange(of: selectedDropOffItem){
-            if let selectedDropOffItem {
-                updateCameraPosition(focus: selectedDropOffItem.placemark.coordinate, distance: 3429, heading: 92, pitch: 60)
+            .onChange(of: vm.searchResultsForDrivers){
+                updateCameraPosition(focus: .locU, distance: 1429, heading: 92, pitch: 70)
             }
-        }
-       .onChange(of: selectedDriverItem){
-            if selectedStep == .request,
-               let selectedPickupItem,
-               let selectedDriverItem {
-                vm.getDirections(
-                    from: selectedDriverItem,
-                    to: selectedPickupItem,
-                    step: selectedStep)
+            .onChange(of: vm.searchResults){
+                updateCameraPosition(focus: .locU, distance: 4129, heading: 92, pitch: 70)
             }
-        }
-        .onChange(of: searchText) { oldT, newT in
-            if selectedPickupItem != nil &&
-                selectedStep == .dropoff &&
-                newT.count > 3 {
-                searchTextPublisher.send(newT)
+            .onChange(of: selectedStep){
+                withAnimation(.spring()){
+                    switch selectedStep {
+                    case .pickup:
+                        updateCameraPosition(focus: .locU, distance: 992, heading: 70, pitch: 60)
+                    case .package:
+                        updateCameraPosition(focus: .locU, distance: 2729, heading: 92, pitch: 70)
+                    case .dropoff:
+                        updateCameraPosition(focus: .locU, distance: 992, heading: 70, pitch: 60)
+                    case .request:
+                        updateCameraPosition(focus: .locU, distance: 3729, heading: 92, pitch: 70)
+                    }
+                }
             }
-        }
-        .onReceive(
-            searchTextPublisher
-                .debounce(for: .milliseconds(729), scheduler: DispatchQueue.main)
-        ) { debouncedSearchText in
-            if let selectedPickupItem {
-                selectedDropOffItem = nil
-                vm.searchLocations(for: debouncedSearchText, from: selectedPickupItem.placemark.coordinate)
+            .onChange(of: selectedDropOffItem){
+                if let selectedDropOffItem {
+                    updateCameraPosition(focus: selectedDropOffItem.placemark.coordinate, distance: 3429, heading: 92, pitch: 60)
+                }
             }
-        }
+            .onChange(of: selectedDriverItem){
+                if selectedStep == .request,
+                   let selectedPickupItem,
+                   let selectedDriverItem {
+                    vm.getDirections(
+                        from: selectedDriverItem,
+                        to: selectedPickupItem,
+                        step: selectedStep)
+                }
+            }
+            .onChange(of: selectedVehicle){oldV, newV in
+                if newV != nil {
+                    Task.detached{
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5.29) {
+                            let randomIndex = Int.random(in: 0..<4)
+                            selectedDriverItem = vm.searchResultsForDrivers[randomIndex]
+                        }
+                    }
+                }
+            }
+            .onChange(of: searchText) { oldT, newT in
+                if selectedPickupItem != nil &&
+                    selectedStep == .dropoff &&
+                    newT.count > 3 {
+                    searchTextPublisher.send(newT)
+                }
+            }
+            .onReceive(
+                searchTextPublisher
+                    .debounce(for: .milliseconds(729), scheduler: DispatchQueue.main)
+            ) { debouncedSearchText in
+                if let selectedPickupItem {
+                    selectedDropOffItem = nil
+                    vm.searchLocations(for: debouncedSearchText, from: selectedPickupItem.placemark.coordinate)
+                }
+            }
     }
     
     private var pickupView: some View {
@@ -206,26 +231,26 @@ struct NewMapView: View {
     }
     private var dropOffView: some View {
         Text("Drop\nOff")
-             .foregroundStyle(.white)
-             .font(.subheadline)
-             .bold()
-             .multilineTextAlignment(.center)
-             .padding(7)
-             .background(.black)
-             .clipShape(Circle())
-             .padding(4)
-             .background(colorMyPin)
-             .clipShape(Circle())
-             .offset(y: -14)
-             .overlay(alignment: .bottom) {
-                 Image(systemName: "triangle.fill")
-                     .resizable()
-                     .scaledToFit()
-                     .foregroundStyle(colorMyPin)
-                     .frame(width: 24)
-                     .scaleEffect(y: -1)
-                 
-             }
+            .foregroundStyle(.white)
+            .font(.subheadline)
+            .bold()
+            .multilineTextAlignment(.center)
+            .padding(7)
+            .background(.black)
+            .clipShape(Circle())
+            .padding(4)
+            .background(colorMyPin)
+            .clipShape(Circle())
+            .offset(y: -14)
+            .overlay(alignment: .bottom) {
+                Image(systemName: "triangle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundStyle(colorMyPin)
+                    .frame(width: 24)
+                    .scaleEffect(y: -1)
+                
+            }
     }
 }
 
@@ -233,6 +258,8 @@ struct NewMapView: View {
     NewMapView(vm: MapViewModel(),
                selectedPickupItem: .constant(nil),
                selectedDropOffItem:.constant(nil),
-               selectedDriverItem: .constant(nil), selectedStep: .constant(.pickup),
-               searchText: .constant(""))
+               selectedDriverItem: .constant(nil),
+               selectedStep: .constant(.pickup),
+               searchText: .constant(""),
+               selectedVehicle: .constant(nil))
 }
