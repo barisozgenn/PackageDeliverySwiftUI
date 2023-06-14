@@ -148,5 +148,5 @@ struct DeliveryChoiceStepsView: View {
 }
 
 #Preview {
-    DeliveryChoiceStepsView(selectedStep: .constant(.pickup), stepsDone: .constant([]), searchText: .constant(""), isDeliveryStepsStarted: .constant(true))
+    DeliveryChoiceStepsView(selectedStep: .constant(.request), stepsDone: .constant([.pickup]), searchText: .constant(""), isDeliveryStepsStarted: .constant(true))
 }

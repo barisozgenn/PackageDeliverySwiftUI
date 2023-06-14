@@ -145,6 +145,14 @@ struct NewMapView: View {
                         to: selectedDropOffItem,
                         step: selectedStep)
                 }
+                if selectedStep == .request,
+                   let selectedPickupItem,
+                   let selectedDriverItem {
+                    vm.getDirections(
+                        from: selectedDriverItem,
+                        to: selectedPickupItem,
+                        step: .request)
+                }
             }
             .onChange(of: vm.searchResultsForDrivers){
                 updateCameraPosition(focus: .locU, distance: 1429, heading: 92, pitch: 70)
@@ -158,9 +166,18 @@ struct NewMapView: View {
                     case .pickup:
                         updateCameraPosition(focus: .locU, distance: 992, heading: 70, pitch: 60)
                     case .package:
-                        updateCameraPosition(focus: .locU, distance: 2729, heading: 92, pitch: 70)
+                        if let selectedDriverItem {
+                            updateCameraPosition(focus: selectedDriverItem.placemark.coordinate, distance: 992, heading: 70, pitch: 60)
+                        }else {
+                            updateCameraPosition(focus: .locU, distance: 2729, heading: 92, pitch: 70)
+                        }
                     case .dropoff:
-                        updateCameraPosition(focus: .locU, distance: 992, heading: 70, pitch: 60)
+                        if let selectedDropOffItem {
+                            updateCameraPosition(focus: selectedDropOffItem.placemark.coordinate, distance: 992, heading: 70, pitch: 60)
+                        }else {
+                            updateCameraPosition(focus: .locU, distance: 992, heading: 70, pitch: 60)
+                        }
+                        
                     case .request:
                         updateCameraPosition(focus: .locU, distance: 3729, heading: 92, pitch: 70)
                     }
@@ -172,19 +189,18 @@ struct NewMapView: View {
                 }
             }
             .onChange(of: selectedDriverItem){
-                if selectedStep == .request,
-                   let selectedPickupItem,
+                if let selectedPickupItem,
                    let selectedDriverItem {
                     vm.getDirections(
                         from: selectedDriverItem,
                         to: selectedPickupItem,
-                        step: selectedStep)
+                        step: .request)
                 }
             }
             .onChange(of: selectedVehicle){oldV, newV in
                 if newV != nil {
                     Task.detached{
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 5.29) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 6.29) {
                             let randomIndex = Int.random(in: 0..<4)
                             selectedDriverItem = vm.searchResultsForDrivers[randomIndex]
                         }

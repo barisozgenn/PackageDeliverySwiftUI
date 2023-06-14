@@ -90,7 +90,7 @@ extension VehicleSelectionView {
     }
 }
 #Preview {
-    VehicleSelectionView(selectedPackage: .s, km: 14.29, selectedVehicle: .constant(.bicycle))
+    VehicleSelectionView(selectedPackage: .xs, km: 7.29, selectedVehicle: .constant(.bicycle))
 }
 
 

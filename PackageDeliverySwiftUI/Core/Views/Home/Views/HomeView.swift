@@ -29,7 +29,7 @@ struct HomeView: View {
     
     @State var isDeliveryStepsStarted: Bool = false
     @State var deliveryPercent: Double = 0
-        
+    
     var body: some View {
         ZStack{
             // show map view included map functions
@@ -104,14 +104,23 @@ struct HomeView: View {
             }
         }
         .onChange(of: isVehicleSelected){oldV, newV in
-            if newV == false && selectedVehicle != nil {
+            if selectedVehicle != nil {
+                
+                isVehicleSelected = false
+                
                 if !stepsDone.contains(.request){ stepsDone.append(.request)
-                    isVehicleSelected = false
                 }
                 Task.detached {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.29) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.92) {
                         isDeliveryStepsStarted = true
                     }
+                }
+            }
+        }
+        .onChange(of: selectedDriverItem){
+            Task.detached {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.29) {
+                    deliveryPercent = 14.29
                 }
             }
         }
@@ -128,7 +137,7 @@ struct HomeView: View {
             selectedDriverItem: $selectedDriverItem,
             vm: mapViewModel,
             isDeliveryStepsStarted: $isDeliveryStepsStarted,
-            deliveryPercent: deliveryPercent)
+            deliveryPercent: $deliveryPercent)
     }
     
     private var newMapView: some View {

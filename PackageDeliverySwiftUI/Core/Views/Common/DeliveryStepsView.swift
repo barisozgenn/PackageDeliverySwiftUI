@@ -16,7 +16,7 @@ struct DeliveryStepsView: View {
     @Bindable var vm : MapViewModel
     @Binding var isDeliveryStepsStarted: Bool
 
-    @State var deliveryPercent: Double = 0
+    @Binding var deliveryPercent: Double
     @State private var colorMyPin: LinearGradient = LinearGradient(colors: [.red, .orange], startPoint: .top, endPoint: .center)
     
     @State private var deliveryStepsViewY: Double = 192
@@ -225,5 +225,5 @@ struct DeliveryStepsView: View {
                       selectedDropOffItem: .constant(MKMapItem(placemark: MKPlacemark(coordinate: .locDropOffDemo))),
                       selectedDriverItem:.constant(MKMapItem(placemark: MKPlacemark(coordinate: .locDriverDemo))),
                       vm: MapViewModel(), isDeliveryStepsStarted: .constant(true),
-                      deliveryPercent: 0)
+                      deliveryPercent: .constant(70))
 }
