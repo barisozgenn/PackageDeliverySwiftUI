@@ -8,6 +8,13 @@ This is a package delivery SwiftUI app that leverages the latest features announ
 
 ## Features
 
+### YouTube Video
+<a href="https://youtu.be/Khu7v58cmu0" target="_blank">
+Watch on YouTube ▷
+</br>
+<img src="https://repository-images.githubusercontent.com/650149081/e5ddfac2-f033-471e-ab29-00d472843010" width="529" title="SwiftUI ios 17 Map Based App barisozgen"/>
+</a>
+
 ### Focusable Views
 - Allows for improved accessibility and interaction by making views focusable.
 - Enhances the user experience by enabling more precise control over focus behavior.
@@ -68,7 +75,7 @@ Once the app is running, you can explore and interact with its features. The mai
 
 ## Contribution
 
-I welcome contributions and improvements to this app. If you have any suggestions, bug reports, or feature requests, please open an issue or submit a pull request. Your contributions are greatly appreciated!
+I welcome contributions and improvements to this app. If you have any suggestions, development contribution or feature requests, please open an issue or submit a pull request. Your contributions are greatly appreciated!
 
 ## License
 
