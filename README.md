@@ -19,8 +19,8 @@ Watch on YouTube ▷
 - Allows for improved accessibility and interaction by making views focusable.
 - Enhances the user experience by enabling more precise control over focus behavior.
 
-### MapKit Integration
-  Utilizes the new MapKit framework for displaying maps and annotating locations.Includes support for drawing circles, polylines, and polygons on the map.Enhances the visual representation of package delivery routes and locations.
+### Map Integration
+  Utilizes the new Map framework for displaying maps and annotating locations.Includes support for drawing circles, polylines, and polygons on the map.Enhances the visual representation of package delivery routes and locations.
   - LookAroundPreview
   - Marker & Annotation
   - MapCamera
@@ -76,6 +76,11 @@ Once the app is running, you can explore and interact with its features. The mai
 ## Contribution
 
 I welcome contributions and improvements to this app. If you have any suggestions, development contribution or feature requests, please open an issue or submit a pull request. Your contributions are greatly appreciated!
+</br>
+🔥 Unlock SwiftUI's Power! Dive into the Playlist: 
+<a target="_blank" href="https://youtube.com/playlist?list=PLHYoNRMg5NxRpb64Blu3j8iZsFsKmT6s1" title="SwiftUI Playlist - Baris Ozgen">
+Watch on YouTube
+</a>
 
 ## License
 
